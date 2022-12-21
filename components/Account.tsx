@@ -8,6 +8,8 @@ import Image from 'next/image'
 import { Database } from '../utils/database.types'
 import Avatar from './Avatar'
 import { coinsMap } from '../utils/constants'
+import { useRouter } from 'next/router'
+import PersonalInfoInput from './PersonalInfoInput'
 type Profiles = Database['public']['Tables']['profiles']['Row']
 
 function reducer(state: any, action: any) {
@@ -24,10 +26,17 @@ function reducer(state: any, action: any) {
 export default function Account({ session }: { session: Session }) {
   const supabase = useSupabaseClient<Database>()
   const user = useUser()
+  const router = useRouter()
   const [loading, setLoading] = useState(true)
   const [username, setUsername] = useState<Profiles['username']>(null)
   const [dbUsername, setDbUsername] = useState<Profiles['username']>(null)
+
+  const [fullname, setFullname] = useState<Profiles['full_name']>(null)
+  const [bio, setBio] = useState<Profiles['bio']>(null)
   const [website, setWebsite] = useState<Profiles['website']>(null)
+  const [twitter, setTwitter] = useState<Profiles['twitter']>(null)
+  const [github, setGithub] = useState<Profiles['github']>(null)
+
   const [avatar_url, setAvatarUrl] = useState<Profiles['avatar_url']>(null)
 
   const [coinsState, dispatch] = useReducer(reducer, {})
@@ -42,7 +51,9 @@ export default function Account({ session }: { session: Session }) {
 
         let { data, error, status } = await supabase
           .from('profiles')
-          .select(`username, website, avatar_url, addresses`)
+          .select(
+            `username, bio, website, twitter, github, avatar_url, addresses, full_name`
+          )
           .eq('id', user.id)
           .single()
 
@@ -53,7 +64,11 @@ export default function Account({ session }: { session: Session }) {
         if (data) {
           setUsername(data.username)
           setDbUsername(data.username)
+          setFullname(data.full_name)
+          setBio(data.bio)
           setWebsite(data.website)
+          setTwitter(data.twitter)
+          setGithub(data.github)
           setAvatarUrl(data.avatar_url)
           dispatch({
             type: 'fetched',
@@ -68,7 +83,7 @@ export default function Account({ session }: { session: Session }) {
       }
     }
     getProfile()
-  }, [session, supabase, user])
+  }, [])
 
   async function updateProfile({
     username,
@@ -142,6 +157,7 @@ export default function Account({ session }: { session: Session }) {
           <span className="label-text">Username</span>
         </label>
         <input
+          disabled={!!dbUsername || loading}
           className="input-bordered input w-full"
           id="username"
           type="text"
@@ -149,18 +165,43 @@ export default function Account({ session }: { session: Session }) {
           onChange={(e) => setUsername(e.target.value)}
         />
       </div>
-      <div>
-        <label htmlFor="website" className="label">
-          <span className="label-text">Website</span>
-        </label>
-        <input
-          className="input-bordered input w-full"
-          id="website"
-          type="text"
-          value={website || ''}
-          onChange={(e) => setWebsite(e.target.value)}
-        />
-      </div>
+
+      <PersonalInfoInput
+        id="fullname"
+        label="Full Name"
+        value={fullname}
+        setValue={setFullname}
+        loading={loading}
+      />
+      <PersonalInfoInput
+        id="bio"
+        label="Bio"
+        value={bio}
+        setValue={setBio}
+        loading={loading}
+      />
+      <PersonalInfoInput
+        id="website"
+        label="Website"
+        value={website}
+        setValue={setWebsite}
+        loading={loading}
+      />
+      <PersonalInfoInput
+        id="twitter"
+        label="Twitter"
+        value={twitter}
+        setValue={setTwitter}
+        loading={loading}
+      />
+      <PersonalInfoInput
+        id="github"
+        label="Github"
+        value={github}
+        setValue={setGithub}
+        loading={loading}
+      />
+
       <h2 className="text-md my-4 pl-1">Coins</h2>
 
       {[...coinsMap].map(([key, coin]) => (
@@ -173,6 +214,7 @@ export default function Account({ session }: { session: Session }) {
             </div>
           </div>
           <input
+            disabled={loading}
             value={
               coinsState[coin.abbreviation] ? coinsState[coin.abbreviation] : ''
             }
@@ -191,7 +233,10 @@ export default function Account({ session }: { session: Session }) {
       <div className="my-4 flex justify-end gap-x-2">
         {dbUsername ? (
           <div>
-            <button className="btn-warning btn w-full" onClick={() => {}}>
+            <button
+              className="btn-warning btn w-full"
+              onClick={() => router.push(`/u/${dbUsername}`)}
+            >
               Visit Profile
             </button>
           </div>
