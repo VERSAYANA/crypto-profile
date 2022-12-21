@@ -9,6 +9,35 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      addresses: {
+        Row: {
+          id: string
+          user_id: string
+          updated_at: string | null
+          created_at: string | null
+          network: string | null
+          coin: string | null
+          address: string | null
+        }
+        Insert: {
+          id: string
+          user_id: string
+          updated_at?: string | null
+          created_at?: string | null
+          network?: string | null
+          coin?: string | null
+          address?: string | null
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          updated_at?: string | null
+          created_at?: string | null
+          network?: string | null
+          coin?: string | null
+          address?: string | null
+        }
+      }
       profiles: {
         Row: {
           id: string
@@ -16,7 +45,16 @@ export interface Database {
           username: string | null
           full_name: string | null
           avatar_url: string | null
+          bio: string | null
           website: string | null
+          twitter: string | null
+          github: string | null
+          instagram: string | null
+          tiktok: string | null
+          youtube: string | null
+          ens: string | null
+          created_at: string | null
+          addresses: Json | null
         }
         Insert: {
           id: string
@@ -24,7 +62,16 @@ export interface Database {
           username?: string | null
           full_name?: string | null
           avatar_url?: string | null
+          bio?: string | null
           website?: string | null
+          twitter?: string | null
+          github?: string | null
+          instagram?: string | null
+          tiktok?: string | null
+          youtube?: string | null
+          ens?: string | null
+          created_at?: string | null
+          addresses?: Json | null
         }
         Update: {
           id?: string
@@ -32,7 +79,16 @@ export interface Database {
           username?: string | null
           full_name?: string | null
           avatar_url?: string | null
+          bio?: string | null
           website?: string | null
+          twitter?: string | null
+          github?: string | null
+          instagram?: string | null
+          tiktok?: string | null
+          youtube?: string | null
+          ens?: string | null
+          created_at?: string | null
+          addresses?: Json | null
         }
       }
     }
