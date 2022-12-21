@@ -31,7 +31,7 @@ export default function Account({ session }: { session: Session }) {
   const [username, setUsername] = useState<Profiles['username']>(null)
   const [dbUsername, setDbUsername] = useState<Profiles['username']>(null)
 
-  const [fullname, setFullname] = useState<Profiles['full_name']>(null)
+  const [full_name, setFullname] = useState<Profiles['full_name']>(null)
   const [bio, setBio] = useState<Profiles['bio']>(null)
   const [website, setWebsite] = useState<Profiles['website']>(null)
   const [twitter, setTwitter] = useState<Profiles['twitter']>(null)
@@ -41,7 +41,7 @@ export default function Account({ session }: { session: Session }) {
 
   const [coinsState, dispatch] = useReducer(reducer, {})
 
-  console.log(coinsState)
+  console.log(full_name)
 
   useEffect(() => {
     async function getProfile() {
@@ -90,22 +90,35 @@ export default function Account({ session }: { session: Session }) {
     website,
     avatar_url,
     addresses,
+    twitter,
+    bio,
+    github,
+    full_name,
   }: {
     username: Profiles['username']
     website: Profiles['website']
     avatar_url: Profiles['avatar_url']
-    addresses: any
+    addresses: Profiles['addresses']
+    twitter: Profiles['twitter']
+    bio: Profiles['bio']
+    github: Profiles['github']
+    full_name: Profiles['full_name']
   }) {
+    console.log(full_name)
     try {
       setLoading(true)
       if (!user) throw new Error('No user')
-
+      console.log(full_name)
       const updates = {
         id: user.id,
         username: username?.toLowerCase(),
         website,
         avatar_url,
         addresses,
+        twitter,
+        bio,
+        github,
+        full_name,
         updated_at: new Date().toISOString(),
       }
 
@@ -136,6 +149,10 @@ export default function Account({ session }: { session: Session }) {
               website,
               avatar_url: url,
               addresses: coinsState,
+              twitter,
+              bio,
+              github,
+              full_name,
             })
           }}
         />
@@ -169,7 +186,7 @@ export default function Account({ session }: { session: Session }) {
       <PersonalInfoInput
         id="fullname"
         label="Full Name"
-        value={fullname}
+        value={full_name}
         setValue={setFullname}
         loading={loading}
       />
@@ -251,6 +268,10 @@ export default function Account({ session }: { session: Session }) {
                 website,
                 avatar_url,
                 addresses: coinsState,
+                twitter,
+                bio,
+                github,
+                full_name,
               })
             }
             disabled={loading}
