@@ -10,34 +10,32 @@ export default function Avatar({
   size,
   onUpload,
 }: {
-  uid: string
+  uid?: string
   url: Profiles['avatar_url']
-  size: number
-  onUpload: (url: string) => void
+  size?: number
+  onUpload?: (url: string) => void
 }) {
   const supabase = useSupabaseClient<Database>()
   const [avatarUrl, setAvatarUrl] = useState<Profiles['avatar_url']>(null)
   const [uploading, setUploading] = useState(false)
 
   useEffect(() => {
-    if (url) downloadImage(url)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [url])
-
-  async function downloadImage(path: string) {
-    try {
-      const { data, error } = await supabase.storage
-        .from('avatars')
-        .download(path)
-      if (error) {
-        throw error
+    async function downloadImage(path: string) {
+      try {
+        const { data, error } = await supabase.storage
+          .from('avatars')
+          .download(path)
+        if (error) {
+          throw error
+        }
+        const url = URL.createObjectURL(data)
+        setAvatarUrl(url)
+      } catch (error) {
+        console.log('Error downloading image: ', error)
       }
-      const url = URL.createObjectURL(data)
-      setAvatarUrl(url)
-    } catch (error) {
-      console.log('Error downloading image: ', error)
     }
-  }
+    if (url) downloadImage(url)
+  }, [url])
 
   const uploadAvatar: React.ChangeEventHandler<HTMLInputElement> = async (
     event
@@ -61,8 +59,9 @@ export default function Avatar({
       if (uploadError) {
         throw uploadError
       }
-
-      onUpload(filePath)
+      if (onUpload) {
+        onUpload(filePath)
+      }
     } catch (error) {
       console.log('error')
       // alert('Error uploading avatar!')
@@ -89,19 +88,21 @@ export default function Avatar({
           </div>
         </div>
       )}
-      <div className="my-4 w-60">
-        <label className="btn-secondary btn w-full" htmlFor="single">
-          {uploading ? 'Uploading ...' : 'Upload'}
-        </label>
-        <input
-          className="hidden"
-          type="file"
-          id="single"
-          accept="image/*"
-          onChange={uploadAvatar}
-          disabled={uploading}
-        />
-      </div>
+      {uid ? (
+        <div className="my-4 w-60">
+          <label className="btn-secondary btn w-full" htmlFor="single">
+            {uploading ? 'Uploading ...' : 'Upload'}
+          </label>
+          <input
+            className="hidden"
+            type="file"
+            id="single"
+            accept="image/*"
+            onChange={uploadAvatar}
+            disabled={uploading}
+          />
+        </div>
+      ) : null}
     </div>
   )
 }
