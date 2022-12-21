@@ -31,7 +31,7 @@ function Navbar() {
   }
 
   return (
-    <div className="navbar justify-between bg-primary text-primary-content">
+    <div className="navbar justify-between bg-neutral text-neutral-content">
       <Link href="/" className="btn-ghost btn">
         Home
       </Link>
