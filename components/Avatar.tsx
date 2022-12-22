@@ -8,11 +8,15 @@ export default function Avatar({
   uid,
   url,
   size,
+  width = 240,
+  height = 240,
   onUpload,
 }: {
   uid?: string
   url: Profiles['avatar_url']
   size?: number
+  width?: number
+  height?: number
   onUpload?: (url: string) => void
 }) {
   const supabase = useSupabaseClient<Database>()
@@ -74,16 +78,19 @@ export default function Avatar({
   return (
     <div className="flex flex-col items-center justify-center">
       {avatarUrl ? (
-        <Image
+        <img
           src={avatarUrl}
           alt="Avatar"
           className="avatar rounded-full"
-          width={240}
-          height={240}
+          width={width}
+          height={height}
         />
       ) : (
         <div className="placeholder avatar">
-          <div className="w-60 rounded-full bg-neutral-focus text-neutral-content">
+          <div
+            className="rounded-full bg-neutral-focus text-neutral-content"
+            style={{ width: width }}
+          >
             <span className="text-3xl">Profile Picture</span>
           </div>
         </div>
