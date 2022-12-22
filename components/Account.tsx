@@ -1,15 +1,17 @@
+/* eslint-disable @next/next/no-img-element */
 import { useState, useEffect, useReducer } from 'react'
 import {
   useUser,
   useSupabaseClient,
   Session,
 } from '@supabase/auth-helpers-react'
-import Image from 'next/image'
+// import Image from 'next/image'
 import { Database } from '../utils/database.types'
 import Avatar from './Avatar'
 import { coinsMap } from '../utils/constants'
 import { useRouter } from 'next/router'
 import PersonalInfoInput from './PersonalInfoInput'
+// import { XRP } from './Icons/XRP'
 type Profiles = Database['public']['Tables']['profiles']['Row']
 
 function reducer(state: any, action: any) {
@@ -83,6 +85,7 @@ export default function Account({ session }: { session: Session }) {
       }
     }
     getProfile()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   async function updateProfile({
@@ -222,10 +225,15 @@ export default function Account({ session }: { session: Session }) {
       <h2 className="text-md my-4 pl-1">Coins</h2>
 
       {[...coinsMap].map(([key, coin]) => (
-        <div key={key} className="my-2 flex gap-3">
-          <div className="flex h-12 w-1/3 items-center gap-4 rounded-lg bg-slate-100 px-4">
-            <Image alt="btc logo" src={coin.logo} width={32} height={32} />
-            <div className="flex flex-col text-sm">
+        <div key={key} className="my-2 flex gap-2 md:gap-3">
+          <div className="flex h-12 w-1/3 items-center gap-2 rounded-lg bg-base-200 px-2 md:gap-4 md:px-4">
+            <img
+              alt={`coin.abbreviation Logo`}
+              src={coin.logo}
+              width={24}
+              height={24}
+            />
+            <div className="flex flex-col text-xs md:text-sm">
               <span>{coin.name}</span>
               <span className="opacity-40">{coin.abbreviation}</span>
             </div>
