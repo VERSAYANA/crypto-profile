@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from 'react'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import Image from 'next/image'
@@ -39,6 +40,7 @@ export default function Avatar({
       }
     }
     if (url) downloadImage(url)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url])
 
   const uploadAvatar: React.ChangeEventHandler<HTMLInputElement> = async (
@@ -91,7 +93,9 @@ export default function Avatar({
             className="rounded-full bg-neutral-focus text-neutral-content"
             style={{ width: width }}
           >
-            <span className="text-3xl">Profile Picture</span>
+            <span className={`${width < 48 ? 'text-xs' : 'text-3xl'}`}>
+              {width < 48 ? 'You' : 'Profile Picture'}
+            </span>
           </div>
         </div>
       )}
