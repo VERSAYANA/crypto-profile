@@ -45,7 +45,7 @@ function Username({ profile }: Props) {
   const [coin, setCoin] = useState('')
   const [qr, setQR] = useState(['', ''])
 
-  console.log(profile)
+  // console.log('server', profile)
 
   const { username } = router.query
 
@@ -60,37 +60,6 @@ function Username({ profile }: Props) {
     const timer = setTimeout(() => setShowToast(false), 800)
     return () => clearTimeout(timer)
   }, [showToast])
-
-  // useEffect(() => {
-  //   async function getProfile() {
-  //     try {
-  //       setLoading(true)
-  //       if (!username) throw new Error('No username')
-
-  //       let { data, error, status } = await supabase
-  //         .from('profiles')
-  //         .select(`*`)
-  //         .eq('username', username)
-  //         .single()
-
-  //       if (error && status !== 406) {
-  //         throw error
-  //       }
-
-  //       if (data) {
-  //         setProfile(data)
-  //       }
-  //     } catch (error) {
-  //       alert('Error loading user data!')
-  //       console.log(error)
-  //     } finally {
-  //       setLoading(false)
-  //     }
-  //   }
-  //   if (username) {
-  //     getProfile()
-  //   }
-  // }, [username])
 
   let coins = null
   if (profile?.addresses) {
@@ -189,6 +158,13 @@ function Username({ profile }: Props) {
 
   // if (loading) {
   //   return <h2>loading</h2>
+  // }
+  // if (!profile) {
+  //   return (
+  //     <div className="flex h-full w-full items-center justify-center">
+  //       <div className="text-xl font-bold">User Not Found</div>
+  //     </div>
+  //   )
   // }
 
   return (
@@ -312,6 +288,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
     if (data) {
       profile = data
+    } else {
+      return {
+        notFound: true,
+      }
     }
   } catch (error) {
     console.log(error)
