@@ -120,7 +120,7 @@ function Username() {
                 }}
               >
                 <span
-                  className={`flex h-12 w-2/3 cursor-pointer items-center overflow-x-auto rounded-lg border border-base-300 p-2 text-sm ${
+                  className={`flex h-12 w-2/3 cursor-pointer items-center overflow-hidden rounded-lg border border-base-300 p-2 text-sm ${
                     key === qr[0] && qr[1] ? 'font-bold' : ''
                   }`}
                 >
