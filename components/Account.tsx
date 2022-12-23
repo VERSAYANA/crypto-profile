@@ -228,7 +228,7 @@ export default function Account({ session }: { session: Session }) {
         <div key={key} className="my-2 flex gap-2 md:gap-3">
           <div className="flex h-12 w-1/3 items-center gap-2 rounded-lg bg-base-200 px-2 md:gap-4 md:px-4">
             <img
-              alt={`coin.abbreviation Logo`}
+              alt={`${coin.abbreviation} Logo`}
               src={coin.logo}
               width={24}
               height={24}
