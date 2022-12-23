@@ -3,17 +3,24 @@ import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { Database } from '../../utils/database.types'
-import Image from 'next/image'
+// import Image from 'next/image'
 import Avatar from '../../components/Avatar'
-import Link from 'next/link'
+// import Link from 'next/link'
 import { GitHub, Twitter, Link as LinkIcon, Copy } from 'react-feather'
 import { getValidUrlFromUsernameOrUrl } from '../../utils/functions'
 import { QR } from '../../components/Icons/QR'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { QRCodeSVG } from 'qrcode.react'
 import { coinsMap } from '../../utils/constants'
+import { GetStaticPaths, GetStaticProps } from 'next'
+import { supabase as supabaseClient } from '../../utils/supabase'
+import { ParsedUrlQuery } from 'querystring'
 
 type Profiles = Database['public']['Tables']['profiles']['Row']
+
+interface IParams extends ParsedUrlQuery {
+  username: string
+}
 
 const copyContent = async (text: string) => {
   try {
@@ -24,12 +31,16 @@ const copyContent = async (text: string) => {
   }
 }
 
-function Username() {
+type Props = {
+  profile: Profiles
+}
+
+function Username({ profile }: Props) {
   const router = useRouter()
   const user = useUser()
   const supabase = useSupabaseClient<Database>()
-  const [loading, setLoading] = useState(true)
-  const [profile, setProfile] = useState<Profiles | null>(null)
+  // const [loading, setLoading] = useState(true)
+  // const [profile, setProfile] = useState<Profiles | null>(null)
   const [showToast, setShowToast] = useState(false)
   const [coin, setCoin] = useState('')
   const [qr, setQR] = useState(['', ''])
@@ -38,11 +49,11 @@ function Username() {
 
   const { username } = router.query
 
-  useEffect(() => {
-    if (!loading && !username) {
-      router.push('/')
-    }
-  }, [loading, router, username])
+  // useEffect(() => {
+  //   if (!loading && !username) {
+  //     router.push('/')
+  //   }
+  // }, [loading, router, username])
 
   // Hide toast after 0.8s
   useEffect(() => {
@@ -50,37 +61,36 @@ function Username() {
     return () => clearTimeout(timer)
   }, [showToast])
 
-  useEffect(() => {
-    async function getProfile() {
-      try {
-        setLoading(true)
-        if (!username) throw new Error('No username')
+  // useEffect(() => {
+  //   async function getProfile() {
+  //     try {
+  //       setLoading(true)
+  //       if (!username) throw new Error('No username')
 
-        let { data, error, status } = await supabase
-          .from('profiles')
-          .select(`*`)
-          .eq('username', username)
-          .single()
+  //       let { data, error, status } = await supabase
+  //         .from('profiles')
+  //         .select(`*`)
+  //         .eq('username', username)
+  //         .single()
 
-        if (error && status !== 406) {
-          throw error
-        }
+  //       if (error && status !== 406) {
+  //         throw error
+  //       }
 
-        if (data) {
-          setProfile(data)
-        }
-      } catch (error) {
-        alert('Error loading user data!')
-        console.log(error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    if (username) {
-      getProfile()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [username])
+  //       if (data) {
+  //         setProfile(data)
+  //       }
+  //     } catch (error) {
+  //       alert('Error loading user data!')
+  //       console.log(error)
+  //     } finally {
+  //       setLoading(false)
+  //     }
+  //   }
+  //   if (username) {
+  //     getProfile()
+  //   }
+  // }, [username])
 
   let coins = null
   if (profile?.addresses) {
@@ -177,9 +187,9 @@ function Username() {
     })
   }
 
-  if (loading) {
-    return <h2>loading</h2>
-  }
+  // if (loading) {
+  //   return <h2>loading</h2>
+  // }
 
   return (
     <div className="container mx-auto flex justify-center">
@@ -251,6 +261,73 @@ function Username() {
       </div>
     </div>
   )
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  let paths: { params: { username: string } }[] = []
+
+  try {
+    let { data, error, status } = await supabaseClient
+      .from('profiles')
+      .select(`username`)
+
+    if (error && status !== 406) {
+      throw error
+    }
+
+    if (data) {
+      for (const profile of data) {
+        if (profile.username) {
+          paths.push({
+            params: { username: profile.username },
+          })
+        }
+      }
+    }
+  } catch (error) {
+    console.log(error)
+  }
+
+  return {
+    paths,
+    fallback: false,
+  }
+}
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const { username } = context.params as IParams
+
+  let profile = null
+
+  try {
+    const { data, error, status } = await supabaseClient
+      .from('profiles')
+      .select('*')
+      .eq('username', username)
+      .single()
+
+    if (error && status !== 406) {
+      throw error
+    }
+
+    if (data) {
+      profile = data
+    }
+  } catch (error) {
+    console.log(error)
+  }
+
+  // const { data: profile } = await supabaseClient
+  //   .from('profiles')
+  //   .select('*')
+  //   .eq('username', username)
+  //   .single()
+
+  return {
+    props: {
+      profile,
+    },
+  }
 }
 
 export default Username
