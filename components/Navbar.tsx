@@ -41,6 +41,7 @@ function Navbar() {
     }
 
     getProfile()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
 
   const signIn = () => {
@@ -90,8 +91,11 @@ function Navbar() {
   }
 
   return (
-    <div className="navbar border-b">
-      <div className="container flex justify-end">{topRight}</div>
+    <div className="navbar sticky top-0 z-10 items-center justify-center  bg-base-100 shadow">
+      <div className="container flex w-full justify-between">
+        <div>{/* <button className="btn-accent btn">Save</button> */}</div>
+        <div className="flex justify-end">{topRight}</div>
+      </div>
     </div>
   )
 }
