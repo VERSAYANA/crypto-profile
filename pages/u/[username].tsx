@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { GitHub, Twitter, Link as LinkIcon, Copy } from 'react-feather'
 import { getValidUrlFromUsernameOrUrl } from '../../utils/functions'
 import { QR } from '../../components/Icons/QR'
+import CopyToClipboard from 'react-copy-to-clipboard'
 
 type Profiles = Database['public']['Tables']['profiles']['Row']
 
@@ -26,6 +27,7 @@ function Username() {
   const supabase = useSupabaseClient<Database>()
   const [loading, setLoading] = useState(true)
   const [profile, setProfile] = useState<Profiles | null>(null)
+  const [showToast, setShowToast] = useState(false)
 
   console.log(profile)
 
@@ -36,6 +38,12 @@ function Username() {
       router.push('/')
     }
   }, [loading, router, username])
+
+  // Hide toast after 1s
+  useEffect(() => {
+    const timer = setTimeout(() => setShowToast(false), 1000)
+    return () => clearTimeout(timer)
+  }, [showToast])
 
   useEffect(() => {
     async function getProfile() {
@@ -78,12 +86,11 @@ function Username() {
             <p>{`${key}: ${value}`}</p>
             <div className="flex">
               <div className="tooltip" data-tip="Copy to clipboard">
-                <button
-                  onClick={() => copyContent(value)}
-                  className="btn-ghost btn-square btn"
-                >
-                  <Copy size={24} />
-                </button>
+                <CopyToClipboard text={value} onCopy={() => setShowToast(true)}>
+                  <button className="btn-ghost btn-square btn">
+                    <Copy size={24} />
+                  </button>
+                </CopyToClipboard>
               </div>
               <div>
                 <button
@@ -109,6 +116,7 @@ function Username() {
       <div className="mt-6">
         <Avatar url={profile?.avatar_url || ''} />
       </div>
+
       <div className="my-4 flex flex-col items-center">
         {profile?.full_name ? (
           <h2 className="text-xl font-bold">{profile.full_name}</h2>
@@ -153,7 +161,17 @@ function Username() {
           ) : null}
         </div>
       </div>
-
+      <div
+        className={`toast-center toast toast-bottom w-60 text-center ${
+          showToast ? '' : 'hidden'
+        }`}
+      >
+        <div className="alert alert-success">
+          <div className="flex w-full items-center">
+            <span className="w-full">Copied to clipboard.</span>
+          </div>
+        </div>
+      </div>
       <div className="flex flex-col">{coins}</div>
     </div>
   )
