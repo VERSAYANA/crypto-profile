@@ -9,6 +9,7 @@ import { GitHub, Twitter, Link as LinkIcon, Copy } from 'react-feather'
 import { getValidUrlFromUsernameOrUrl } from '../../utils/functions'
 import { QR } from '../../components/Icons/QR'
 import CopyToClipboard from 'react-copy-to-clipboard'
+import { QRCodeSVG } from 'qrcode.react'
 
 type Profiles = Database['public']['Tables']['profiles']['Row']
 
@@ -28,6 +29,7 @@ function Username() {
   const [loading, setLoading] = useState(true)
   const [profile, setProfile] = useState<Profiles | null>(null)
   const [showToast, setShowToast] = useState(false)
+  const [qr, setQR] = useState(['', ''])
 
   console.log(profile)
 
@@ -82,25 +84,54 @@ function Username() {
     coins = Object.entries(profile.addresses).map(([key, value]) => {
       if (value) {
         return (
-          <div key={key} className="flex items-center justify-between gap-1">
-            <p>{`${key}: ${value}`}</p>
-            <div className="flex">
-              <div className="tooltip" data-tip="Copy to clipboard">
-                <CopyToClipboard text={value} onCopy={() => setShowToast(true)}>
-                  <button className="btn-ghost btn-square btn">
-                    <Copy size={24} />
+          <div key={key} className="flex flex-col gap-2">
+            <div className="flex items-center justify-between gap-1">
+              {/* <p
+                className={`${key === qr[0] && qr[1] ? 'font-bold' : ''}`}
+              >{`${key}: ${value}`}</p> */}
+              <div>{key}</div>
+              <input
+                disabled
+                className="input-bordered input !cursor-pointer"
+                value={value}
+              />
+
+              {/* <p
+                className={`${key === qr[0] && qr[1] ? 'font-bold' : ''}`}
+              >{`${key}: ${value}`}</p> */}
+
+              <div className="flex">
+                <div className="tooltip" data-tip="Copy to clipboard">
+                  <CopyToClipboard
+                    text={value}
+                    onCopy={() => setShowToast(true)}
+                  >
+                    <button className="btn-ghost btn-square btn">
+                      <Copy size={24} />
+                    </button>
+                  </CopyToClipboard>
+                </div>
+                <div>
+                  <button
+                    onClick={() => {
+                      if (key === qr[0] && qr[1]) {
+                        setQR([key, ''])
+                      } else {
+                        setQR([key, value])
+                      }
+                    }}
+                    className="btn-ghost btn-square btn"
+                  >
+                    <QR width="24" height="24" />
                   </button>
-                </CopyToClipboard>
-              </div>
-              <div>
-                <button
-                  onClick={() => copyContent(value)}
-                  className="btn-ghost btn-square btn"
-                >
-                  <QR width="24" height="24" />
-                </button>
+                </div>
               </div>
             </div>
+            {key === qr[0] && qr[1] ? (
+              <div className="flex items-center justify-center">
+                <QRCodeSVG value={qr[1]} />
+              </div>
+            ) : null}
           </div>
         )
       }
