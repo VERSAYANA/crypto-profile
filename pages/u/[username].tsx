@@ -10,6 +10,7 @@ import { getValidUrlFromUsernameOrUrl } from '../../utils/functions'
 import { QR } from '../../components/Icons/QR'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { QRCodeSVG } from 'qrcode.react'
+import { coinsMap } from '../../utils/constants'
 
 type Profiles = Database['public']['Tables']['profiles']['Row']
 
@@ -89,13 +90,21 @@ function Username() {
               {/* <p
                 className={`${key === qr[0] && qr[1] ? 'font-bold' : ''}`}
               >{`${key}: ${value}`}</p> */}
-              <div>{key}</div>
-              <input
-                disabled
-                className="input-bordered input !cursor-pointer"
-                value={value}
-              />
-
+              <div>{coinsMap.get(key)?.name}</div>
+              <CopyToClipboard text={value} onCopy={() => setShowToast(true)}>
+                <span
+                  className={`w-80 cursor-pointer overflow-x-hidden rounded-lg border border-base-300 p-2 ${
+                    key === qr[0] && qr[1] ? 'font-bold' : ''
+                  }`}
+                >
+                  {value}
+                  {/* <input
+                    disabled
+                    className="input-bordered input !cursor-pointer"
+                    value={value}
+                  /> */}
+                </span>
+              </CopyToClipboard>
               {/* <p
                 className={`${key === qr[0] && qr[1] ? 'font-bold' : ''}`}
               >{`${key}: ${value}`}</p> */}

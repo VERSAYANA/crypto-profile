@@ -17,18 +17,18 @@ interface CoinDetails {
   logo: string
 }
 
-export const coinsMap = new Map<number, CoinDetails>()
-coinsMap.set(0, {
+export const coinsMap = new Map<number | string, CoinDetails>()
+coinsMap.set('BTC', {
   name: 'Bitcoin',
   abbreviation: 'BTC',
   logo: '/svg/icon/btc.svg',
 })
-coinsMap.set(1, {
+coinsMap.set('ETH', {
   name: 'Ethereum',
   abbreviation: 'ETH',
   logo: '/svg/icon/eth.svg',
 })
-coinsMap.set(2, {
+coinsMap.set('USDT', {
   name: 'Tether',
   abbreviation: 'USDT',
   logo: '/svg/icon/usdt.svg',
@@ -48,7 +48,7 @@ coinsMap.set(5, {
   abbreviation: 'BNB',
   logo: '/svg/icon/bnb.svg',
 })
-coinsMap.set(6, {
+coinsMap.set('XRP', {
   name: 'XRP',
   abbreviation: 'XRP',
   logo: '/svg/icon/xrp.svg',
@@ -135,4 +135,106 @@ coinsMap.forEach((coin, key) => {})
 //   name: 'EOS',
 //   abbreviation: 'EOS',
 //   logo: '/svg/icon/eos.svg',
+// })
+
+// export const coinsMap = new Map<number, CoinDetails>()
+// coinsMap.set(0, {
+//   name: 'Bitcoin',
+//   abbreviation: 'BTC',
+//   logo: '/cryptoIcons/btc.png',
+// })
+// coinsMap.set(1, {
+//   name: 'Ethereum',
+//   abbreviation: 'ETH',
+//   logo: '/cryptoIcons/eth.png',
+// })
+// coinsMap.set(2, {
+//   name: 'Tether',
+//   abbreviation: 'USDT',
+//   logo: '/cryptoIcons/usdt.png',
+// })
+// coinsMap.set(3, {
+//   name: 'USD Coin',
+//   abbreviation: 'USDC',
+//   logo: '/cryptoIcons/usdc.png',
+// })
+// coinsMap.set(4, {
+//   name: 'Binance USD',
+//   abbreviation: 'BUSD',
+//   logo: '/cryptoIcons/busd.png',
+// })
+// coinsMap.set(5, {
+//   name: 'Binance Coin',
+//   abbreviation: 'BNB',
+//   logo: '/cryptoIcons/bnb.png',
+// })
+// coinsMap.set(6, {
+//   name: 'XRP',
+//   abbreviation: 'XRP',
+//   logo: '/cryptoIcons/xrp.png',
+// })
+// coinsMap.set(7, {
+//   name: 'Dogecoin',
+//   abbreviation: 'DOGE',
+//   logo: '/cryptoIcons/doge.png',
+// })
+// coinsMap.set(8, {
+//   name: 'Cardano',
+//   abbreviation: 'ADA',
+//   logo: '/cryptoIcons/ada.png',
+// })
+// coinsMap.set(9, {
+//   name: 'Polygon',
+//   abbreviation: 'MATIC',
+//   logo: '/cryptoIcons/matic.png',
+// })
+// coinsMap.set(10, {
+//   name: 'TRON',
+//   abbreviation: 'TRX',
+//   logo: '/cryptoIcons/trx.png',
+// })
+// coinsMap.set(11, {
+//   name: 'Dai',
+//   abbreviation: 'DAI',
+//   logo: '/cryptoIcons/dai.png',
+// })
+// coinsMap.set(12, {
+//   name: 'Litecoin',
+//   abbreviation: 'LTC',
+//   logo: '/cryptoIcons/ltc.png',
+// })
+// coinsMap.set(13, {
+//   name: 'Polkadot',
+//   abbreviation: 'DOT',
+//   logo: '/cryptoIcons/dot.png',
+// })
+// coinsMap.set(14, {
+//   name: 'Monero',
+//   abbreviation: 'XMR',
+//   logo: '/cryptoIcons/xmr.png',
+// })
+// coinsMap.set(15, {
+//   name: 'Avalanche',
+//   abbreviation: 'AVAX',
+//   logo: '/cryptoIcons/avax.png',
+// })
+// coinsMap.set(16, {
+//   name: 'Toncoin',
+//   abbreviation: 'TON',
+//   logo: '/cryptoIcons/ton.png',
+// })
+// coinsMap.set(17, {
+//   name: 'Bitcoin Cash',
+//   abbreviation: 'BCH',
+//   logo: '/cryptoIcons/bch.png',
+// })
+// coinsMap.set(18, {
+//   name: 'Cosmos',
+//   abbreviation: 'ATOM',
+//   logo: '/cryptoIcons/atom.png',
+// })
+// coinsMap.set(19, {
+//   name: 'Stellar',
+//   abbreviation: 'XLM',
+//   logo: '/cryptoIcons/xlm.png',
 // })
