@@ -33,17 +33,17 @@ coinsMap.set('USDT', {
   abbreviation: 'USDT',
   logo: '/svg/icon/usdt.svg',
 })
-coinsMap.set(3, {
+coinsMap.set('USDC', {
   name: 'USD Coin',
   abbreviation: 'USDC',
   logo: '/svg/icon/usdc.svg',
 })
-coinsMap.set(4, {
+coinsMap.set('BUSD', {
   name: 'Binance USD',
   abbreviation: 'BUSD',
   logo: '/svg/icon/busd.png',
 })
-coinsMap.set(5, {
+coinsMap.set('BNB', {
   name: 'Binance Coin',
   abbreviation: 'BNB',
   logo: '/svg/icon/bnb.svg',
@@ -53,67 +53,67 @@ coinsMap.set('XRP', {
   abbreviation: 'XRP',
   logo: '/svg/icon/xrp.svg',
 })
-coinsMap.set(7, {
+coinsMap.set('DOGE', {
   name: 'Dogecoin',
   abbreviation: 'DOGE',
   logo: '/svg/icon/doge.svg',
 })
-coinsMap.set(8, {
+coinsMap.set('ADA', {
   name: 'Cardano',
   abbreviation: 'ADA',
   logo: '/svg/icon/ada.svg',
 })
-coinsMap.set(9, {
+coinsMap.set('MATIC', {
   name: 'Polygon',
   abbreviation: 'MATIC',
   logo: '/svg/icon/matic.svg',
 })
-coinsMap.set(10, {
+coinsMap.set('TRX', {
   name: 'TRON',
   abbreviation: 'TRX',
   logo: '/svg/icon/trx.svg',
 })
-coinsMap.set(11, {
+coinsMap.set('DAI', {
   name: 'Dai',
   abbreviation: 'DAI',
   logo: '/svg/icon/dai.svg',
 })
-coinsMap.set(12, {
+coinsMap.set('LTC', {
   name: 'Litecoin',
   abbreviation: 'LTC',
   logo: '/svg/icon/ltc.svg',
 })
-coinsMap.set(13, {
+coinsMap.set('DOT', {
   name: 'Polkadot',
   abbreviation: 'DOT',
   logo: '/svg/icon/dot.svg',
 })
-coinsMap.set(14, {
+coinsMap.set('XMR', {
   name: 'Monero',
   abbreviation: 'XMR',
   logo: '/svg/icon/xmr.svg',
 })
-coinsMap.set(15, {
+coinsMap.set('AVAX', {
   name: 'Avalanche',
   abbreviation: 'AVAX',
   logo: '/svg/icon/avax.svg',
 })
-coinsMap.set(16, {
+coinsMap.set('TON', {
   name: 'Toncoin',
   abbreviation: 'TON',
   logo: '/svg/icon/ton.png',
 })
-coinsMap.set(17, {
+coinsMap.set('BCH', {
   name: 'Bitcoin Cash',
   abbreviation: 'BCH',
   logo: '/svg/icon/bch.svg',
 })
-coinsMap.set(18, {
+coinsMap.set('ATOM', {
   name: 'Cosmos',
   abbreviation: 'ATOM',
   logo: '/svg/icon/atom.svg',
 })
-coinsMap.set(19, {
+coinsMap.set('XLM', {
   name: 'Stellar',
   abbreviation: 'XLM',
   logo: '/svg/icon/xlm.svg',

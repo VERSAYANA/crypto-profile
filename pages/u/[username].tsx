@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -30,6 +31,7 @@ function Username() {
   const [loading, setLoading] = useState(true)
   const [profile, setProfile] = useState<Profiles | null>(null)
   const [showToast, setShowToast] = useState(false)
+  const [coin, setCoin] = useState('')
   const [qr, setQR] = useState(['', ''])
 
   console.log(profile)
@@ -42,9 +44,9 @@ function Username() {
     }
   }, [loading, router, username])
 
-  // Hide toast after 1s
+  // Hide toast after 0.8s
   useEffect(() => {
-    const timer = setTimeout(() => setShowToast(false), 1000)
+    const timer = setTimeout(() => setShowToast(false), 800)
     return () => clearTimeout(timer)
   }, [showToast])
 
@@ -86,14 +88,39 @@ function Username() {
       if (value) {
         return (
           <div key={key} className="flex flex-col gap-2">
-            <div className="flex items-center justify-between gap-1">
+            <div
+              className={`flex items-center justify-between gap-1  ${
+                key === qr[0] && qr[1] ? 'font-bold' : ''
+              }`}
+            >
               {/* <p
                 className={`${key === qr[0] && qr[1] ? 'font-bold' : ''}`}
               >{`${key}: ${value}`}</p> */}
-              <div>{coinsMap.get(key)?.name}</div>
-              <CopyToClipboard text={value} onCopy={() => setShowToast(true)}>
+              <div className="flex h-12 w-1/3 items-center gap-2 rounded-lg bg-base-200 px-2 md:gap-4 md:px-4">
+                <img
+                  alt={`${coinsMap.get(key)?.abbreviation} Logo`}
+                  src={coinsMap.get(key)?.logo}
+                  width={24}
+                  height={24}
+                />
+                <div className="flex flex-col text-sm">
+                  <span className="hidden md:flex">
+                    {coinsMap.get(key)?.name}
+                  </span>
+                  <span className="md:opacity-40">
+                    {coinsMap.get(key)?.abbreviation}
+                  </span>
+                </div>
+              </div>
+              <CopyToClipboard
+                text={value}
+                onCopy={() => {
+                  setShowToast(true)
+                  setCoin(coinsMap.get(key)?.abbreviation || '')
+                }}
+              >
                 <span
-                  className={`w-80 cursor-pointer overflow-x-hidden rounded-lg border border-base-300 p-2 ${
+                  className={`flex h-12 w-2/3 cursor-pointer items-center overflow-x-auto rounded-lg border border-base-300 p-2 text-sm ${
                     key === qr[0] && qr[1] ? 'font-bold' : ''
                   }`}
                 >
@@ -113,7 +140,10 @@ function Username() {
                 <div className="tooltip" data-tip="Copy to clipboard">
                   <CopyToClipboard
                     text={value}
-                    onCopy={() => setShowToast(true)}
+                    onCopy={() => {
+                      setShowToast(true)
+                      setCoin(coinsMap.get(key)?.abbreviation || '')
+                    }}
                   >
                     <button className="btn-ghost btn-square btn">
                       <Copy size={24} />
@@ -152,67 +182,73 @@ function Username() {
   }
 
   return (
-    <div className="flex flex-col items-center">
-      <div className="mt-6">
-        <Avatar url={profile?.avatar_url || ''} />
-      </div>
-
-      <div className="my-4 flex flex-col items-center">
-        {profile?.full_name ? (
-          <h2 className="text-xl font-bold">{profile.full_name}</h2>
-        ) : null}
-        <h3 className="text-md opacity-85">@{username}</h3>
-      </div>
-      <div className="flex flex-col items-center">
-        {profile?.bio ? (
-          <p className="text-md opacity-85">{profile.bio}</p>
-        ) : null}
-
-        <div className="my-4 flex gap-4">
-          {profile?.twitter ? (
-            <a
-              href={`${getValidUrlFromUsernameOrUrl(
-                profile.twitter,
-                'https://twitter.com/'
-              )}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <Twitter size={28} />
-            </a>
-          ) : null}
-
-          {profile?.github ? (
-            <a
-              href={`${getValidUrlFromUsernameOrUrl(
-                profile.github,
-                'https://github.com/'
-              )}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <GitHub size={28} />
-            </a>
-          ) : null}
-          {profile?.website ? (
-            <a href={profile.website}>
-              <LinkIcon size={28} />
-            </a>
-          ) : null}
-        </div>
-      </div>
-      <div
-        className={`toast-center toast toast-bottom w-60 text-center ${
-          showToast ? '' : 'hidden'
-        }`}
-      >
-        <div className="alert alert-success">
-          <div className="flex w-full items-center">
-            <span className="w-full">Copied to clipboard.</span>
+    <div className="container mx-auto flex justify-center">
+      <div className="flex w-full max-w-2xl flex-col items-center justify-center p-4">
+        <div className="flex w-full flex-col">
+          <div className="mt-6">
+            <Avatar url={profile?.avatar_url || ''} />
           </div>
+
+          <div className="my-4 flex flex-col items-center">
+            {profile?.full_name ? (
+              <h2 className="text-xl font-bold">{profile.full_name}</h2>
+            ) : null}
+            <h3 className="text-md opacity-85">@{username}</h3>
+          </div>
+          <div className="mb-4 flex flex-col items-center">
+            {profile?.bio ? (
+              <p className="text-md opacity-85">{profile.bio}</p>
+            ) : null}
+
+            <div className="my-4 flex gap-4">
+              {profile?.twitter ? (
+                <a
+                  href={`${getValidUrlFromUsernameOrUrl(
+                    profile.twitter,
+                    'https://twitter.com/'
+                  )}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Twitter size={28} />
+                </a>
+              ) : null}
+
+              {profile?.github ? (
+                <a
+                  href={`${getValidUrlFromUsernameOrUrl(
+                    profile.github,
+                    'https://github.com/'
+                  )}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <GitHub size={28} />
+                </a>
+              ) : null}
+              {profile?.website ? (
+                <a href={profile.website}>
+                  <LinkIcon size={28} />
+                </a>
+              ) : null}
+            </div>
+          </div>
+          <div
+            className={`toast-center toast toast-top z-10 w-80 text-center md:toast-bottom ${
+              showToast ? '' : 'hidden'
+            }`}
+          >
+            <div className="alert alert-success">
+              <div className="flex w-full items-center">
+                <span className="w-full">
+                  {coin} address copied to clipboard.
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col gap-4">{coins}</div>
         </div>
       </div>
-      <div className="flex flex-col">{coins}</div>
     </div>
   )
 }
