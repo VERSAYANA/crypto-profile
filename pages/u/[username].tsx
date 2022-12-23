@@ -5,10 +5,20 @@ import { Database } from '../../utils/database.types'
 import Image from 'next/image'
 import Avatar from '../../components/Avatar'
 import Link from 'next/link'
-import { GitHub, Twitter, Link as LinkIcon } from 'react-feather'
+import { GitHub, Twitter, Link as LinkIcon, Copy } from 'react-feather'
 import { getValidUrlFromUsernameOrUrl } from '../../utils/functions'
+import { QR } from '../../components/Icons/QR'
 
 type Profiles = Database['public']['Tables']['profiles']['Row']
+
+const copyContent = async (text: string) => {
+  try {
+    await navigator.clipboard.writeText(text)
+    console.log('Content copied to clipboard')
+  } catch (err) {
+    console.error('Failed to copy: ', err)
+  }
+}
 
 function Username() {
   const router = useRouter()
@@ -56,7 +66,39 @@ function Username() {
     if (username) {
       getProfile()
     }
-  }, [supabase, username])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [username])
+
+  let coins = null
+  if (profile?.addresses) {
+    coins = Object.entries(profile.addresses).map(([key, value]) => {
+      if (value) {
+        return (
+          <div key={key} className="flex items-center justify-between gap-1">
+            <p>{`${key}: ${value}`}</p>
+            <div className="flex">
+              <div className="tooltip" data-tip="Copy to clipboard">
+                <button
+                  onClick={() => copyContent(value)}
+                  className="btn-ghost btn-square btn"
+                >
+                  <Copy size={24} />
+                </button>
+              </div>
+              <div>
+                <button
+                  onClick={() => copyContent(value)}
+                  className="btn-ghost btn-square btn"
+                >
+                  <QR width="24" height="24" />
+                </button>
+              </div>
+            </div>
+          </div>
+        )
+      }
+    })
+  }
 
   if (loading) {
     return <h2>loading</h2>
@@ -77,6 +119,7 @@ function Username() {
         {profile?.bio ? (
           <p className="text-md opacity-85">{profile.bio}</p>
         ) : null}
+
         <div className="my-4 flex gap-4">
           {profile?.twitter ? (
             <a
@@ -110,6 +153,8 @@ function Username() {
           ) : null}
         </div>
       </div>
+
+      <div className="flex flex-col">{coins}</div>
     </div>
   )
 }
