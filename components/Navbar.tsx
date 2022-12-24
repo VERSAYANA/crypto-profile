@@ -49,7 +49,7 @@ function Navbar() {
   }
 
   const signInButton = (
-    <Link href="/auth" className="btn-ghost btn">
+    <Link href="/" className="btn-ghost btn">
       Sign In
     </Link>
   )
