@@ -260,7 +260,7 @@ export default function Account({ session }: { session: Session }) {
           <div>
             <button
               className="btn-warning btn w-full"
-              onClick={() => router.push(`/u/${dbUsername}`)}
+              onClick={() => router.push(`/${dbUsername}`)}
             >
               Visit Profile
             </button>

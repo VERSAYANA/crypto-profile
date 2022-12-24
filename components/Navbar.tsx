@@ -70,7 +70,7 @@ function Navbar() {
       >
         {username ? (
           <li>
-            <Link href={`/u/${username}`}>Profile</Link>
+            <Link href={`/${username}`}>Profile</Link>
           </li>
         ) : null}
         <li>

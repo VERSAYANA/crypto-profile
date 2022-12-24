@@ -11,7 +11,7 @@ export default async function handler(
   if (req.body.record.username) {
     // console.log(req.body.record.username)
     try {
-      await res.revalidate(`/u/${req.body.record.username}`)
+      await res.revalidate(`/${req.body.record.username}`)
       return res.json({ revalidated: true })
     } catch (err) {
       return res.status(500).send('Error revalidating')
