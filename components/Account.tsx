@@ -40,10 +40,25 @@ export default function Account({ session }: { session: Session }) {
   const [github, setGithub] = useState<Profiles['github']>(null)
 
   const [avatar_url, setAvatarUrl] = useState<Profiles['avatar_url']>(null)
-
   const [coinsState, dispatch] = useReducer(reducer, {})
 
-  console.log(full_name)
+  const [toast, setToast] = useState({
+    hidden: true,
+    message: '',
+    type: '',
+  })
+  useEffect(() => {
+    const timer = setTimeout(
+      () =>
+        setToast({
+          hidden: true,
+          message: '',
+          type: '',
+        }),
+      1000
+    )
+    return () => clearTimeout(timer)
+  }, [toast])
 
   useEffect(() => {
     async function getProfile() {
@@ -78,7 +93,11 @@ export default function Account({ session }: { session: Session }) {
           })
         }
       } catch (error) {
-        alert('Error loading user data!')
+        setToast({
+          hidden: false,
+          message: 'Error loading user data!',
+          type: 'error',
+        })
         console.log(error)
       } finally {
         setLoading(false)
@@ -128,10 +147,18 @@ export default function Account({ session }: { session: Session }) {
       let { error } = await supabase.from('profiles').upsert(updates)
 
       if (error) throw error
-      alert('Profile updated!')
+      setToast({
+        hidden: false,
+        message: 'Profile updated!',
+        type: 'success',
+      })
       setDbUsername(username)
     } catch (error) {
-      alert('Error updating the data!')
+      setToast({
+        hidden: false,
+        message: 'Error updating the data!',
+        type: 'error',
+      })
       console.log(error)
     } finally {
       setLoading(false)
@@ -286,6 +313,17 @@ export default function Account({ session }: { session: Session }) {
           >
             {loading ? 'Loading ...' : 'Update'}
           </button>
+        </div>
+      </div>
+      <div
+        className={`toast-center toast toast-top z-10 w-80 text-center md:toast-bottom ${
+          toast.hidden ? 'hidden' : ''
+        }`}
+      >
+        <div className={`alert alert-${toast.type}`}>
+          <div className="flex w-full items-center">
+            <span className="w-full">{toast.message}</span>
+          </div>
         </div>
       </div>
     </div>
