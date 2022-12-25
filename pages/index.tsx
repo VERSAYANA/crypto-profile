@@ -25,6 +25,12 @@ export default function Home() {
                 supabaseClient={supabase}
                 appearance={{
                   theme: ThemeSupa,
+                  className: {
+                    button: '!btn',
+                    input: '!input !input-bordered !text-base-content',
+                    label: '!label-text',
+                    anchor: '!link',
+                  },
                 }}
                 theme="default"
               />
