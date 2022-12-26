@@ -213,7 +213,7 @@ export default function Account({ session }: { session: Session }) {
           </label>
           <input
             disabled={!!dbUsername || loading}
-            className="input-bordered input w-full"
+            className="input-bordered input-error input w-full"
             id="username"
             type="text"
             value={username || ''}
