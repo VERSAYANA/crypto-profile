@@ -11,6 +11,7 @@ import Avatar from './Avatar'
 import { coinsMap } from '../utils/constants'
 import { useRouter } from 'next/router'
 import PersonalInfoInput from './PersonalInfoInput'
+import Head from 'next/head'
 // import { XRP } from './Icons/XRP'
 type Profiles = Database['public']['Tables']['profiles']['Row']
 
@@ -166,166 +167,176 @@ export default function Account({ session }: { session: Session }) {
   }
 
   return (
-    <div className="flex w-full flex-col">
-      {user ? (
-        <Avatar
-          uid={user.id}
-          url={avatar_url}
-          size={150}
-          onUpload={(url) => {
-            setAvatarUrl(url)
-            updateProfile({
-              username,
-              website,
-              avatar_url: url,
-              addresses: coinsState,
-              twitter,
-              bio,
-              github,
-              full_name,
-            })
-          }}
-        />
-      ) : null}
-      <div>
-        <label htmlFor="email" className="label">
-          <span className="label-text">Email</span>
-        </label>
-        <input
-          className="input-bordered input w-full"
-          id="email"
-          type="text"
-          value={session.user.email}
-          disabled
-        />
-      </div>
-      <div>
-        <label htmlFor="username" className="label">
-          <span className="label-text">Username</span>
-        </label>
-        <input
-          disabled={!!dbUsername || loading}
-          className="input-bordered input w-full"
-          id="username"
-          type="text"
-          value={username || ''}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      </div>
-
-      <PersonalInfoInput
-        id="fullname"
-        label="Full Name"
-        value={full_name}
-        setValue={setFullname}
-        loading={loading}
-      />
-      <PersonalInfoInput
-        id="bio"
-        label="Bio"
-        value={bio}
-        setValue={setBio}
-        loading={loading}
-      />
-      <PersonalInfoInput
-        id="website"
-        label="Website"
-        value={website}
-        setValue={setWebsite}
-        loading={loading}
-      />
-      <PersonalInfoInput
-        id="twitter"
-        label="Twitter"
-        value={twitter}
-        setValue={setTwitter}
-        loading={loading}
-      />
-      <PersonalInfoInput
-        id="github"
-        label="Github"
-        value={github}
-        setValue={setGithub}
-        loading={loading}
-      />
-
-      <h2 className="text-md my-4 pl-1">Coins</h2>
-
-      {[...coinsMap].map(([key, coin]) => (
-        <div key={key} className="my-2 flex gap-2 md:gap-3">
-          <div className="flex h-12 w-1/3 items-center gap-2 rounded-lg bg-base-200 px-2 md:gap-4 md:px-4">
-            <img
-              alt={`${coin.abbreviation} Logo`}
-              src={coin.logo}
-              width={24}
-              height={24}
-            />
-            <div className="flex flex-col text-xs md:text-sm">
-              <span>{coin.name}</span>
-              <span className="opacity-40">{coin.abbreviation}</span>
-            </div>
-          </div>
-          <input
-            disabled={loading}
-            value={
-              coinsState[coin.abbreviation] ? coinsState[coin.abbreviation] : ''
-            }
-            onChange={(e) =>
-              dispatch({
-                type: 'update',
-                coin: coin.abbreviation,
-                newValue: e.target.value,
-              })
-            }
-            className="input-bordered input w-2/3 text-sm"
-          />
-        </div>
-      ))}
-
-      <div className="my-4 flex justify-end gap-x-2">
-        {dbUsername ? (
-          <div>
-            <button
-              className="btn-warning btn w-full"
-              onClick={() => router.push(`/${dbUsername}`)}
-            >
-              Visit Profile
-            </button>
-          </div>
-        ) : null}
-
-        <div>
-          <button
-            className={`btn-accent btn w-full ${loading ? 'loading' : ''}`}
-            onClick={() =>
+    <>
+      <Head>
+        <title>Edit Profile</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/btc.svg" />
+        <link rel="icon" href="/btc.png" />
+      </Head>
+      <div className="flex w-full flex-col">
+        {user ? (
+          <Avatar
+            uid={user.id}
+            url={avatar_url}
+            size={150}
+            onUpload={(url) => {
+              setAvatarUrl(url)
               updateProfile({
                 username,
                 website,
-                avatar_url,
+                avatar_url: url,
                 addresses: coinsState,
                 twitter,
                 bio,
                 github,
                 full_name,
               })
-            }
-            disabled={loading}
-          >
-            {loading ? 'Loading ...' : 'Update'}
-          </button>
+            }}
+          />
+        ) : null}
+        <div>
+          <label htmlFor="email" className="label">
+            <span className="label-text">Email</span>
+          </label>
+          <input
+            className="input-bordered input w-full"
+            id="email"
+            type="text"
+            value={session.user.email}
+            disabled
+          />
         </div>
-      </div>
-      <div
-        className={`toast-center toast toast-top z-10 w-80 text-center md:toast-bottom ${
-          toast.hidden ? 'hidden' : ''
-        }`}
-      >
-        <div className={`alert alert-${toast.type}`}>
-          <div className="flex w-full items-center">
-            <span className="w-full">{toast.message}</span>
+        <div>
+          <label htmlFor="username" className="label">
+            <span className="label-text">Username</span>
+          </label>
+          <input
+            disabled={!!dbUsername || loading}
+            className="input-bordered input w-full"
+            id="username"
+            type="text"
+            value={username || ''}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
+
+        <PersonalInfoInput
+          id="fullname"
+          label="Full Name"
+          value={full_name}
+          setValue={setFullname}
+          loading={loading}
+        />
+        <PersonalInfoInput
+          id="bio"
+          label="Bio"
+          value={bio}
+          setValue={setBio}
+          loading={loading}
+        />
+        <PersonalInfoInput
+          id="website"
+          label="Website"
+          value={website}
+          setValue={setWebsite}
+          loading={loading}
+        />
+        <PersonalInfoInput
+          id="twitter"
+          label="Twitter"
+          value={twitter}
+          setValue={setTwitter}
+          loading={loading}
+        />
+        <PersonalInfoInput
+          id="github"
+          label="Github"
+          value={github}
+          setValue={setGithub}
+          loading={loading}
+        />
+
+        <h2 className="text-md my-4 pl-1">Coins</h2>
+
+        {[...coinsMap].map(([key, coin]) => (
+          <div key={key} className="my-2 flex gap-2 md:gap-3">
+            <div className="flex h-12 w-1/3 items-center gap-2 rounded-lg bg-base-200 px-2 md:gap-4 md:px-4">
+              <img
+                alt={`${coin.abbreviation} Logo`}
+                src={coin.logo}
+                width={24}
+                height={24}
+              />
+              <div className="flex flex-col text-xs md:text-sm">
+                <span>{coin.name}</span>
+                <span className="opacity-40">{coin.abbreviation}</span>
+              </div>
+            </div>
+            <input
+              disabled={loading}
+              value={
+                coinsState[coin.abbreviation]
+                  ? coinsState[coin.abbreviation]
+                  : ''
+              }
+              onChange={(e) =>
+                dispatch({
+                  type: 'update',
+                  coin: coin.abbreviation,
+                  newValue: e.target.value,
+                })
+              }
+              className="input-bordered input w-2/3 text-sm"
+            />
+          </div>
+        ))}
+
+        <div className="my-4 flex justify-end gap-x-2">
+          {dbUsername ? (
+            <div>
+              <button
+                className="btn-warning btn w-full"
+                onClick={() => router.push(`/${dbUsername}`)}
+              >
+                Visit Profile
+              </button>
+            </div>
+          ) : null}
+
+          <div>
+            <button
+              className={`btn-accent btn w-full ${loading ? 'loading' : ''}`}
+              onClick={() =>
+                updateProfile({
+                  username,
+                  website,
+                  avatar_url,
+                  addresses: coinsState,
+                  twitter,
+                  bio,
+                  github,
+                  full_name,
+                })
+              }
+              disabled={loading}
+            >
+              {loading ? 'Loading ...' : 'Update'}
+            </button>
+          </div>
+        </div>
+        <div
+          className={`toast-center toast toast-top z-10 w-80 text-center md:toast-bottom ${
+            toast.hidden ? 'hidden' : ''
+          }`}
+        >
+          <div className={`alert alert-${toast.type}`}>
+            <div className="flex w-full items-center">
+              <span className="w-full">{toast.message}</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
