@@ -8,10 +8,12 @@ import {
 // import Image from 'next/image'
 import { Database } from '../utils/database.types'
 import Avatar from './Avatar'
-import { coinsMap } from '../utils/constants'
+import { coinsMap, networksMap } from '../utils/constants'
 import { useRouter } from 'next/router'
 import PersonalInfoInput from './PersonalInfoInput'
 import Head from 'next/head'
+import { ChevronDown, ChevronsDown } from 'react-feather'
+import { Disclosure } from '@headlessui/react'
 // import { XRP } from './Icons/XRP'
 type Profiles = Database['public']['Tables']['profiles']['Row']
 
@@ -19,7 +21,10 @@ function reducer(state: any, action: any) {
   if (action.type === 'update') {
     return {
       ...state,
-      [action.coin]: action.newValue,
+      [action.coin]: {
+        ...state[action.coin],
+        [action.network]: action.newValue,
+      },
     }
   } else if (action.type === 'fetched') {
     return action.newState
@@ -42,6 +47,8 @@ export default function Account({ session }: { session: Session }) {
 
   const [avatar_url, setAvatarUrl] = useState<Profiles['avatar_url']>(null)
   const [coinsState, dispatch] = useReducer(reducer, {})
+
+  console.log(coinsState)
 
   const [toast, setToast] = useState({
     hidden: true,
@@ -127,11 +134,9 @@ export default function Account({ session }: { session: Session }) {
     github: Profiles['github']
     full_name: Profiles['full_name']
   }) {
-    console.log(full_name)
     try {
       setLoading(true)
       if (!user) throw new Error('No user')
-      console.log(full_name)
       const updates = {
         id: user.id,
         username: username?.toLowerCase(),
@@ -220,7 +225,6 @@ export default function Account({ session }: { session: Session }) {
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
-
         <PersonalInfoInput
           id="fullname"
           label="Full Name"
@@ -256,9 +260,259 @@ export default function Account({ session }: { session: Session }) {
           setValue={setGithub}
           loading={loading}
         />
-
         <h2 className="text-md my-4 pl-1">Coins</h2>
 
+        <div className="flex flex-col gap-4">
+          {[...coinsMap].map(([key, coin]) => {
+            if (coin.networks.length <= 1) {
+              return (
+                <div
+                  key={key}
+                  className="flex h-16 gap-9 rounded-lg bg-base-200 px-2 md:gap-2 md:px-3"
+                >
+                  <div className="flex w-32 items-center gap-2 md:w-72 md:gap-3">
+                    <img
+                      className="h-6 w-6 md:h-8 md:w-8"
+                      src={coin.logo}
+                      alt={`${coin.abbreviation} Logo`}
+                    />
+                    <div className="flex flex-col items-start justify-start text-xs md:text-sm">
+                      <span className="hidden md:flex">{coin.name}</span>
+                      <span className="md:opacity-40">{coin.abbreviation}</span>
+                    </div>
+                  </div>
+                  <div className="flex w-full items-center justify-end">
+                    <input
+                      disabled={loading}
+                      value={
+                        coinsState[coin.abbreviation]?.[coin.networks[0]]
+                          ? coinsState[coin.abbreviation][coin.networks[0]]
+                          : ''
+                      }
+                      onChange={(e) =>
+                        dispatch({
+                          type: 'update',
+                          coin: coin.abbreviation,
+                          newValue: e.target.value,
+                          network: coin.networks[0],
+                        })
+                      }
+                      className="input-bordered input h-10 w-full"
+                    />
+                  </div>
+                </div>
+              )
+            } else {
+              return (
+                <Disclosure
+                  key={key}
+                  as="div"
+                  className="flex flex-col  rounded-lg bg-base-200 px-2 md:px-3"
+                >
+                  {({ open }) => (
+                    <>
+                      <Disclosure.Button className="flex h-16 gap-9">
+                        <div className="flex w-32 items-center gap-2 md:w-72 md:gap-3">
+                          <img
+                            className="h-6 w-6 md:h-8 md:w-8"
+                            src={coin.logo}
+                            alt={`${coin.abbreviation} Logo`}
+                          />
+                          <div className="flex flex-col items-start justify-start text-xs md:text-sm">
+                            <span className="hidden md:flex">{coin.name}</span>
+                            <span className="md:opacity-40">
+                              {coin.abbreviation}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="flex w-full items-center justify-end">
+                          <ChevronDown
+                            className={`${
+                              open ? 'rotate-180 transform' : ''
+                            } h-6 w-6 md:h-8 md:w-8`}
+                          />
+                        </div>
+                      </Disclosure.Button>
+
+                      <Disclosure.Panel>
+                        {coin.networks.map((network) => (
+                          <div key={network} className="flex h-16">
+                            <div className="flex w-32 items-center gap-2 md:w-72 md:gap-3">
+                              <div className="relative h-6 w-6 md:h-8 md:w-8">
+                                <img
+                                  className="h-6 w-6 md:h-8 md:w-8"
+                                  src={coin.logo}
+                                  alt={`${coin.abbreviation} Logo`}
+                                />
+                                <div className="absolute top-0 right-0 translate-x-1/4 -translate-y-1/4 rounded-full bg-white">
+                                  <img
+                                    className=" h-3 w-3  md:h-4 md:w-4"
+                                    src={networksMap.get(network)?.logo}
+                                    alt={`${
+                                      networksMap.get(network)?.logo
+                                    } Logo`}
+                                  />
+                                </div>
+                              </div>
+                              <div className="flex flex-col items-start justify-start text-xs md:text-sm">
+                                <span className="hidden md:flex">
+                                  {networksMap.get(network)?.name}
+                                </span>
+                                <span className="md:opacity-40">
+                                  {networksMap.get(network)?.abbreviation}
+                                </span>
+                              </div>
+                            </div>
+                            <div className="flex w-full items-center justify-end">
+                              <input
+                                disabled={loading}
+                                value={
+                                  coinsState[coin.abbreviation]?.[network]
+                                    ? coinsState[coin.abbreviation][network]
+                                    : ''
+                                }
+                                onChange={(e) =>
+                                  dispatch({
+                                    type: 'update',
+                                    coin: coin.abbreviation,
+                                    newValue: e.target.value,
+                                    network: network,
+                                  })
+                                }
+                                className="input-bordered input h-10 w-full"
+                              />
+                            </div>
+                          </div>
+                        ))}
+                      </Disclosure.Panel>
+                    </>
+                  )}
+                </Disclosure>
+              )
+            }
+          })}
+        </div>
+
+        {/* <div className="mb-96 flex flex-col gap-4">
+          <div className="flex h-16 gap-9 rounded-lg bg-base-200 px-2 md:gap-2 md:px-3">
+            <div className="flex items-center gap-2 md:w-1/3 md:gap-3">
+              <img
+                className="h-6 w-6 md:h-8 md:w-8"
+                src="/svg/icon/btc.svg"
+                alt="BTC Logo"
+              />
+              <div className="flex flex-col text-xs md:text-sm">
+                <span className="">Bitcoin</span>
+                <span className="opacity-40">BTC</span>
+              </div>
+            </div>
+            <div className="flex w-full items-center justify-end">
+              <input className="input-bordered input h-10 w-full" />
+            </div>
+          </div>
+
+          <Disclosure
+            as="div"
+            className="flex flex-col  rounded-lg bg-base-200 px-2 md:px-3"
+          >
+            {({ open }) => (
+              <>
+                <Disclosure.Button className="flex h-16 gap-9">
+                  <div className="flex items-center gap-2 md:w-1/3 md:gap-3">
+                    <img
+                      className="h-6 w-6 md:h-8 md:w-8"
+                      src="/svg/icon/usdt.svg"
+                      alt="BTC Logo"
+                    />
+                    <div className="flex flex-col text-xs md:text-sm">
+                      <span className="">Tether</span>
+                      <span className="opacity-40">USDT</span>
+                    </div>
+                  </div>
+                  <div className="flex w-full items-center justify-end">
+                    <ChevronDown
+                      className={`${
+                        open ? 'rotate-180 transform' : ''
+                      } h-6 w-6 md:h-8 md:w-8`}
+                    />
+                  </div>
+                </Disclosure.Button>
+
+                <Disclosure.Panel className="flex h-16 gap-9">
+                  <div className="flex items-center gap-2 md:w-1/3 md:gap-3">
+                    <div className="relative h-6 w-6 md:h-8 md:w-8">
+                      <img
+                        className="h-6 w-6 md:h-8 md:w-8"
+                        src="/svg/icon/usdt.svg"
+                        alt="USDT Logo"
+                      />
+                      <div className="absolute top-0 right-0 translate-x-1/4 -translate-y-1/4 rounded-full bg-white">
+                        <img
+                          className=" h-3 w-3  md:h-4 md:w-4"
+                          src="/svg/black/eth.svg"
+                          alt="USDT Logo"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex flex-col text-xs md:text-sm">
+                      <span className="">Ethereum</span>
+                      <span className="opacity-40">ETH</span>
+                    </div>
+                  </div>
+                  <div className="flex w-full items-center justify-end">
+                    <input className="input-bordered input h-10 w-full" />
+                  </div>
+                </Disclosure.Panel>
+              </>
+            )}
+          </Disclosure>
+        </div> */}
+
+        {/* <div className="flex gap-6 rounded-lg bg-base-200 p-2">
+            <div className="flex items-center gap-2">
+              <img className="h-6 w-6" src="/svg/icon/btc.svg" alt="BTC Logo" />
+              <div className="flex flex-col">
+                <span className="text-xs">Bitcoin</span>
+                <span className="text-xs opacity-40">BTC</span>
+              </div>
+            </div>
+            <div className="flex w-full items-center">
+              <input className="input-bordered input" />
+            </div>
+          </div> */}
+        {/* <div style={{ display: 'table' }} className="w-full">
+          <div className="table-header-group">
+            <div className="table-row">
+              <div className="table-cell text-left">Asset</div>
+              <div className="table-cell text-left">Network</div>
+              <div className="table-cell w-full text-left">Address</div>
+            </div>
+          </div>
+
+          <div className="table-row-group">
+            {[...coinsMap].map(([key, coin]) => (
+              <div key={key} className="table-row">
+                <div className="table-cell">{coin.abbreviation}</div>
+                <div className="table-cell">
+                  {coin.networks[0].abbreviation}
+                </div>
+                <div className="table-cell">
+                  <input
+                    className="input-bordered input w-full"
+                    placeholder="Address"
+                  />
+                </div>
+              </div>
+            ))}
+
+          </div>
+        </div> */}
+
+        {/* <div className="flex">
+          <div>Asset</div>
+          <div>Network</div>
+          <div>Address</div>
+        </div>
         {[...coinsMap].map(([key, coin]) => (
           <div key={key} className="my-2 flex gap-2 md:gap-3">
             <div className="flex h-12 w-1/3 items-center gap-2 rounded-lg bg-base-200 px-2 md:gap-4 md:px-4">
@@ -290,8 +544,7 @@ export default function Account({ session }: { session: Session }) {
               className="input-bordered input w-2/3 text-sm"
             />
           </div>
-        ))}
-
+        ))} */}
         <div className="my-4 flex justify-end gap-x-2">
           {dbUsername ? (
             <div>

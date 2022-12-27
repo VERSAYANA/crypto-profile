@@ -11,9 +11,63 @@ export const coins = [
   ['MATIC', '/svg/icon/matic.svg'],
 ]
 
+export const networksMap = new Map<string, Network>()
+networksMap.set('ETH', {
+  name: 'Ethereum',
+  abbreviation: 'ETH',
+  logo: '/svg/black/eth.svg',
+})
+networksMap.set('TRX', {
+  name: 'Tron',
+  abbreviation: 'TRX',
+  logo: '/svg/black/trx.svg',
+})
+networksMap.set('BSC', {
+  name: 'Binance Smart Chain',
+  abbreviation: 'BSC',
+  logo: '/svg/black/bsc.png',
+})
+networksMap.set('BNB', {
+  name: 'Binance Beacon Chain',
+  abbreviation: 'BNB',
+  logo: '/svg/black/bnb.svg',
+})
+networksMap.set('Polygon', {
+  name: 'Polygon',
+  abbreviation: 'Polygon',
+  logo: '/svg/black/matic.svg',
+})
+networksMap.set('SOL', {
+  name: 'Solana',
+  abbreviation: 'SOL',
+  logo: '/svg/black/sol.svg',
+})
+networksMap.set('ALGO', {
+  name: 'Algorand',
+  abbreviation: 'ALGO',
+  logo: '/svg/black/algo.svg',
+})
+networksMap.set('AVAX', {
+  name: 'Avalanche',
+  abbreviation: 'AVAX',
+  logo: '/svg/black/avax.svg',
+})
+networksMap.set('ATOM', {
+  name: 'Cosmos',
+  abbreviation: 'ATOM',
+  logo: '/svg/black/atom.svg',
+})
+
 interface CoinDetails {
   name: string
   abbreviation: string
+  logo: string
+  networks: string[]
+}
+
+interface Network {
+  abbreviation: string
+  name: string
   logo: string
 }
 
@@ -22,219 +76,120 @@ coinsMap.set('BTC', {
   name: 'Bitcoin',
   abbreviation: 'BTC',
   logo: '/svg/icon/btc.svg',
+  networks: ['BTC'],
 })
 coinsMap.set('ETH', {
   name: 'Ethereum',
   abbreviation: 'ETH',
   logo: '/svg/icon/eth.svg',
+  networks: ['ETH'],
 })
 coinsMap.set('USDT', {
   name: 'Tether',
   abbreviation: 'USDT',
   logo: '/svg/icon/usdt.svg',
+  networks: ['ETH', 'TRX', 'BSC', 'Polygon'],
 })
 coinsMap.set('USDC', {
   name: 'USD Coin',
   abbreviation: 'USDC',
   logo: '/svg/icon/usdc.svg',
+  networks: ['ETH', 'TRX', 'BSC', 'Polygon'],
 })
 coinsMap.set('BUSD', {
   name: 'Binance USD',
   abbreviation: 'BUSD',
   logo: '/svg/icon/busd.png',
+  networks: ['BNB', 'BSC'],
 })
 coinsMap.set('BNB', {
   name: 'Binance Coin',
   abbreviation: 'BNB',
   logo: '/svg/icon/bnb.svg',
+  networks: ['BNB', 'BSC'],
 })
 coinsMap.set('XRP', {
   name: 'XRP',
   abbreviation: 'XRP',
   logo: '/svg/icon/xrp.svg',
+  networks: ['XRP'],
 })
 coinsMap.set('DOGE', {
   name: 'Dogecoin',
   abbreviation: 'DOGE',
   logo: '/svg/icon/doge.svg',
+  networks: ['DOGE'],
 })
 coinsMap.set('ADA', {
   name: 'Cardano',
   abbreviation: 'ADA',
   logo: '/svg/icon/ada.svg',
+  networks: ['ADA'],
 })
 coinsMap.set('MATIC', {
   name: 'Polygon',
   abbreviation: 'MATIC',
   logo: '/svg/icon/matic.svg',
+  networks: ['ETH', 'Polygon'],
 })
 coinsMap.set('TRX', {
-  name: 'TRON',
+  name: 'Tron',
   abbreviation: 'TRX',
   logo: '/svg/icon/trx.svg',
+  networks: ['TRX'],
 })
 coinsMap.set('DAI', {
   name: 'Dai',
   abbreviation: 'DAI',
   logo: '/svg/icon/dai.svg',
+  networks: ['ETH', 'Polygon'],
 })
 coinsMap.set('LTC', {
   name: 'Litecoin',
   abbreviation: 'LTC',
   logo: '/svg/icon/ltc.svg',
+  networks: ['LTC'],
 })
 coinsMap.set('DOT', {
   name: 'Polkadot',
   abbreviation: 'DOT',
   logo: '/svg/icon/dot.svg',
+  networks: ['DOT'],
 })
 coinsMap.set('XMR', {
   name: 'Monero',
   abbreviation: 'XMR',
   logo: '/svg/icon/xmr.svg',
+  networks: ['XMR'],
 })
 coinsMap.set('AVAX', {
   name: 'Avalanche',
   abbreviation: 'AVAX',
   logo: '/svg/icon/avax.svg',
+  networks: ['AVAX'],
 })
+
 coinsMap.set('TON', {
   name: 'Toncoin',
   abbreviation: 'TON',
   logo: '/svg/icon/ton.png',
+  networks: ['TON'],
 })
 coinsMap.set('BCH', {
   name: 'Bitcoin Cash',
   abbreviation: 'BCH',
   logo: '/svg/icon/bch.svg',
+  networks: ['BCH'],
 })
 coinsMap.set('ATOM', {
   name: 'Cosmos',
   abbreviation: 'ATOM',
   logo: '/svg/icon/atom.svg',
+  networks: ['ATOM'],
 })
 coinsMap.set('XLM', {
   name: 'Stellar',
   abbreviation: 'XLM',
   logo: '/svg/icon/xlm.svg',
+  networks: ['XLM'],
 })
-
-coinsMap.forEach((coin, key) => {})
-// coinsMap.set(12, {
-//   name: 'Stellar',
-//   abbreviation: 'XLM',
-//   logo: '/svg/icon/xlm.svg',
-// })
-
-// coinsMap.set(14, {
-//   name: 'THETA',
-//   abbreviation: 'THETA',
-//   logo: '/svg/icon/theta.svg',
-// })
-// coinsMap.set(15, {
-//   name: 'EOS',
-//   abbreviation: 'EOS',
-//   logo: '/svg/icon/eos.svg',
-// })
-
-// export const coinsMap = new Map<number, CoinDetails>()
-// coinsMap.set(0, {
-//   name: 'Bitcoin',
-//   abbreviation: 'BTC',
-//   logo: '/cryptoIcons/btc.png',
-// })
-// coinsMap.set(1, {
-//   name: 'Ethereum',
-//   abbreviation: 'ETH',
-//   logo: '/cryptoIcons/eth.png',
-// })
-// coinsMap.set(2, {
-//   name: 'Tether',
-//   abbreviation: 'USDT',
-//   logo: '/cryptoIcons/usdt.png',
-// })
-// coinsMap.set(3, {
-//   name: 'USD Coin',
-//   abbreviation: 'USDC',
-//   logo: '/cryptoIcons/usdc.png',
-// })
-// coinsMap.set(4, {
-//   name: 'Binance USD',
-//   abbreviation: 'BUSD',
-//   logo: '/cryptoIcons/busd.png',
-// })
-// coinsMap.set(5, {
-//   name: 'Binance Coin',
-//   abbreviation: 'BNB',
-//   logo: '/cryptoIcons/bnb.png',
-// })
-// coinsMap.set(6, {
-//   name: 'XRP',
-//   abbreviation: 'XRP',
-//   logo: '/cryptoIcons/xrp.png',
-// })
-// coinsMap.set(7, {
-//   name: 'Dogecoin',
-//   abbreviation: 'DOGE',
-//   logo: '/cryptoIcons/doge.png',
-// })
-// coinsMap.set(8, {
-//   name: 'Cardano',
-//   abbreviation: 'ADA',
-//   logo: '/cryptoIcons/ada.png',
-// })
-// coinsMap.set(9, {
-//   name: 'Polygon',
-//   abbreviation: 'MATIC',
-//   logo: '/cryptoIcons/matic.png',
-// })
-// coinsMap.set(10, {
-//   name: 'TRON',
-//   abbreviation: 'TRX',
-//   logo: '/cryptoIcons/trx.png',
-// })
-// coinsMap.set(11, {
-//   name: 'Dai',
-//   abbreviation: 'DAI',
-//   logo: '/cryptoIcons/dai.png',
-// })
-// coinsMap.set(12, {
-//   name: 'Litecoin',
-//   abbreviation: 'LTC',
-//   logo: '/cryptoIcons/ltc.png',
-// })
-// coinsMap.set(13, {
-//   name: 'Polkadot',
-//   abbreviation: 'DOT',
-//   logo: '/cryptoIcons/dot.png',
-// })
-// coinsMap.set(14, {
-//   name: 'Monero',
-//   abbreviation: 'XMR',
-//   logo: '/cryptoIcons/xmr.png',
-// })
-// coinsMap.set(15, {
-//   name: 'Avalanche',
-//   abbreviation: 'AVAX',
-//   logo: '/cryptoIcons/avax.png',
-// })
-// coinsMap.set(16, {
-//   name: 'Toncoin',
-//   abbreviation: 'TON',
-//   logo: '/cryptoIcons/ton.png',
-// })
-// coinsMap.set(17, {
-//   name: 'Bitcoin Cash',
-//   abbreviation: 'BCH',
-//   logo: '/cryptoIcons/bch.png',
-// })
-// coinsMap.set(18, {
-//   name: 'Cosmos',
-//   abbreviation: 'ATOM',
-//   logo: '/cryptoIcons/atom.png',
-// })
-// coinsMap.set(19, {
-//   name: 'Stellar',
-//   abbreviation: 'XLM',
-//   logo: '/cryptoIcons/xlm.png',
-// })
