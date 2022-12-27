@@ -58,7 +58,7 @@ function Username({ profile }: Props) {
 
   // Hide toast after 0.8s
   useEffect(() => {
-    const timer = setTimeout(() => setShowToast(false), 800)
+    const timer = setTimeout(() => setShowToast(false), 1000)
     return () => clearTimeout(timer)
   }, [showToast])
 
