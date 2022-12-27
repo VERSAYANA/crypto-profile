@@ -33,7 +33,7 @@ function reducer(state: any, action: any) {
 
 export default function Account({ session }: { session: Session }) {
   const supabase = useSupabaseClient<Database>()
-  const user = useUser()
+  const { user } = session
   const router = useRouter()
   const [loading, setLoading] = useState(true)
   const [username, setUsername] = useState<Profiles['username']>(null)
@@ -47,8 +47,6 @@ export default function Account({ session }: { session: Session }) {
 
   const [avatar_url, setAvatarUrl] = useState<Profiles['avatar_url']>(null)
   const [coinsState, dispatch] = useReducer(reducer, {})
-
-  console.log(coinsState)
 
   const [toast, setToast] = useState({
     hidden: true,
@@ -208,7 +206,7 @@ export default function Account({ session }: { session: Session }) {
             className="input-bordered input w-full"
             id="email"
             type="text"
-            value={session.user.email}
+            value={user?.email || ''}
             disabled
           />
         </div>
