@@ -7,7 +7,6 @@ import Account from '../components/Account'
 export default function Home() {
   const session = useSession()
   const supabase = useSupabaseClient()
-  console.log(session)
 
   return (
     <>

@@ -1,20 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState, useEffect, useReducer } from 'react'
-import {
-  useUser,
-  useSupabaseClient,
-  Session,
-} from '@supabase/auth-helpers-react'
-// import Image from 'next/image'
+import { useSupabaseClient, Session } from '@supabase/auth-helpers-react'
 import { Database } from '../utils/database.types'
 import Avatar from './Avatar'
 import { coinsMap, networksMap } from '../utils/constants'
 import { useRouter } from 'next/router'
 import PersonalInfoInput from './PersonalInfoInput'
 import Head from 'next/head'
-import { ChevronDown, ChevronsDown } from 'react-feather'
+import { ChevronDown } from 'react-feather'
 import { Disclosure } from '@headlessui/react'
-// import { XRP } from './Icons/XRP'
 type Profiles = Database['public']['Tables']['profiles']['Row']
 
 function reducer(state: any, action: any) {
@@ -391,158 +385,6 @@ export default function Account({ session }: { session: Session }) {
           })}
         </div>
 
-        {/* <div className="mb-96 flex flex-col gap-4">
-          <div className="flex h-16 gap-9 rounded-lg bg-base-200 px-2 md:gap-2 md:px-3">
-            <div className="flex items-center gap-2 md:w-1/3 md:gap-3">
-              <img
-                className="h-6 w-6 md:h-8 md:w-8"
-                src="/svg/icon/btc.svg"
-                alt="BTC Logo"
-              />
-              <div className="flex flex-col text-xs md:text-sm">
-                <span className="">Bitcoin</span>
-                <span className="opacity-40">BTC</span>
-              </div>
-            </div>
-            <div className="flex w-full items-center justify-end">
-              <input className="input-bordered input h-10 w-full" />
-            </div>
-          </div>
-
-          <Disclosure
-            as="div"
-            className="flex flex-col  rounded-lg bg-base-200 px-2 md:px-3"
-          >
-            {({ open }) => (
-              <>
-                <Disclosure.Button className="flex h-16 gap-9">
-                  <div className="flex items-center gap-2 md:w-1/3 md:gap-3">
-                    <img
-                      className="h-6 w-6 md:h-8 md:w-8"
-                      src="/svg/icon/usdt.svg"
-                      alt="BTC Logo"
-                    />
-                    <div className="flex flex-col text-xs md:text-sm">
-                      <span className="">Tether</span>
-                      <span className="opacity-40">USDT</span>
-                    </div>
-                  </div>
-                  <div className="flex w-full items-center justify-end">
-                    <ChevronDown
-                      className={`${
-                        open ? 'rotate-180 transform' : ''
-                      } h-6 w-6 md:h-8 md:w-8`}
-                    />
-                  </div>
-                </Disclosure.Button>
-
-                <Disclosure.Panel className="flex h-16 gap-9">
-                  <div className="flex items-center gap-2 md:w-1/3 md:gap-3">
-                    <div className="relative h-6 w-6 md:h-8 md:w-8">
-                      <img
-                        className="h-6 w-6 md:h-8 md:w-8"
-                        src="/svg/icon/usdt.svg"
-                        alt="USDT Logo"
-                      />
-                      <div className="absolute top-0 right-0 translate-x-1/4 -translate-y-1/4 rounded-full bg-white">
-                        <img
-                          className=" h-3 w-3  md:h-4 md:w-4"
-                          src="/svg/black/eth.svg"
-                          alt="USDT Logo"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex flex-col text-xs md:text-sm">
-                      <span className="">Ethereum</span>
-                      <span className="opacity-40">ETH</span>
-                    </div>
-                  </div>
-                  <div className="flex w-full items-center justify-end">
-                    <input className="input-bordered input h-10 w-full" />
-                  </div>
-                </Disclosure.Panel>
-              </>
-            )}
-          </Disclosure>
-        </div> */}
-
-        {/* <div className="flex gap-6 rounded-lg bg-base-200 p-2">
-            <div className="flex items-center gap-2">
-              <img className="h-6 w-6" src="/svg/icon/btc.svg" alt="BTC Logo" />
-              <div className="flex flex-col">
-                <span className="text-xs">Bitcoin</span>
-                <span className="text-xs opacity-40">BTC</span>
-              </div>
-            </div>
-            <div className="flex w-full items-center">
-              <input className="input-bordered input" />
-            </div>
-          </div> */}
-        {/* <div style={{ display: 'table' }} className="w-full">
-          <div className="table-header-group">
-            <div className="table-row">
-              <div className="table-cell text-left">Asset</div>
-              <div className="table-cell text-left">Network</div>
-              <div className="table-cell w-full text-left">Address</div>
-            </div>
-          </div>
-
-          <div className="table-row-group">
-            {[...coinsMap].map(([key, coin]) => (
-              <div key={key} className="table-row">
-                <div className="table-cell">{coin.abbreviation}</div>
-                <div className="table-cell">
-                  {coin.networks[0].abbreviation}
-                </div>
-                <div className="table-cell">
-                  <input
-                    className="input-bordered input w-full"
-                    placeholder="Address"
-                  />
-                </div>
-              </div>
-            ))}
-
-          </div>
-        </div> */}
-
-        {/* <div className="flex">
-          <div>Asset</div>
-          <div>Network</div>
-          <div>Address</div>
-        </div>
-        {[...coinsMap].map(([key, coin]) => (
-          <div key={key} className="my-2 flex gap-2 md:gap-3">
-            <div className="flex h-12 w-1/3 items-center gap-2 rounded-lg bg-base-200 px-2 md:gap-4 md:px-4">
-              <img
-                alt={`${coin.abbreviation} Logo`}
-                src={coin.logo}
-                width={24}
-                height={24}
-              />
-              <div className="flex flex-col text-xs md:text-sm">
-                <span>{coin.name}</span>
-                <span className="opacity-40">{coin.abbreviation}</span>
-              </div>
-            </div>
-            <input
-              disabled={loading}
-              value={
-                coinsState[coin.abbreviation]
-                  ? coinsState[coin.abbreviation]
-                  : ''
-              }
-              onChange={(e) =>
-                dispatch({
-                  type: 'update',
-                  coin: coin.abbreviation,
-                  newValue: e.target.value,
-                })
-              }
-              className="input-bordered input w-2/3 text-sm"
-            />
-          </div>
-        ))} */}
         <div className="my-4 flex justify-end gap-x-2">
           {dbUsername ? (
             <div>
