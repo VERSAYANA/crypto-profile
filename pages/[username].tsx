@@ -66,7 +66,10 @@ function Username({ profile }: Props) {
 
       if (coin?.networks.length <= 1) {
         return (
-          <div key={asset} className="flex flex-col rounded-lg bg-base-200">
+          <div
+            key={asset}
+            className="flex flex-col rounded-lg bg-base-200 text-xs md:text-sm"
+          >
             <div
               className={`flex h-14 items-center gap-2 px-2 md:px-4 ${
                 qr.asset === asset && qr.network === addr[0][0]
@@ -74,13 +77,13 @@ function Username({ profile }: Props) {
                   : ''
               }`}
             >
-              <div className="flex w-32 items-center gap-2 md:w-72 md:gap-3">
+              <div className="flex w-32 items-center gap-2 md:w-96 md:gap-2">
                 <img
                   className="h-6 w-6 md:h-8 md:w-8"
                   src={coinsMap.get(asset)?.logo}
                   alt={`${coinsMap.get(asset)?.name} Logo`}
                 />
-                <div className="flex flex-col items-start justify-start text-xs md:text-base">
+                <div className="flex flex-col items-start justify-end text-xs md:text-sm">
                   <span className="hidden md:flex">
                     {coinsMap.get(asset)?.name}
                   </span>
@@ -152,21 +155,21 @@ function Username({ profile }: Props) {
       } else {
         return (
           <Disclosure
-            defaultOpen={true}
+            defaultOpen={false}
             key={asset}
             as="div"
-            className="flex flex-col rounded-lg bg-base-200 px-2 md:px-4"
+            className="flex flex-col rounded-lg bg-base-200 px-2 text-xs md:px-4 md:text-sm"
           >
             {({ open }) => (
               <>
                 <Disclosure.Button className="flex h-14 w-full items-center justify-between">
-                  <div className="flex w-32 items-center gap-2 md:w-72 md:gap-3">
+                  <div className="flex w-32 items-center gap-2 md:w-96 md:gap-2">
                     <img
                       className="h-6 w-6 md:h-8 md:w-8"
                       src={coinsMap.get(asset)?.logo}
                       alt={`${coinsMap.get(asset)?.name} Logo`}
                     />
-                    <div className="flex flex-col items-start justify-start text-xs md:text-base">
+                    <div className="flex flex-col items-start justify-end">
                       <span className="hidden md:flex">
                         {coinsMap.get(asset)?.name}
                       </span>
@@ -192,7 +195,7 @@ function Username({ profile }: Props) {
                             : ''
                         }`}
                       >
-                        <div className="flex w-32 items-center gap-2 md:w-72 md:gap-3">
+                        <div className="flex w-32 items-center gap-2 md:w-96 md:gap-2">
                           <div className="relative h-6 w-6 md:h-8 md:w-8">
                             <img
                               className="h-6 w-6 md:h-8 md:w-8"
@@ -208,7 +211,7 @@ function Username({ profile }: Props) {
                             </div>
                           </div>
 
-                          <div className="flex flex-col items-start justify-start text-xs md:text-base">
+                          <div className="flex flex-col items-start justify-end text-xs md:text-sm">
                             <span className="hidden md:flex">
                               {networksMap.get(network)?.name}
                             </span>
