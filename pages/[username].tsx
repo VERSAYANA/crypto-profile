@@ -303,7 +303,7 @@ function Username({ profile }: Props) {
     <>
       <Head>
         <title>
-          {profile.username ? profile.username.toUpperCase() : 'User Profile'}
+          {profile?.username ? profile.username.toUpperCase() : 'User Profile'}
         </title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/btc.svg" />
