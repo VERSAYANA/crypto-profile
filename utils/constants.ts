@@ -4,12 +4,90 @@ export const coins = [
   ['USDT', '/svg/icon/usdt.svg'],
   ['USDC', '/svg/icon/usdc.svg'],
   ['BUSD', '/svg/icon/busd.svg'],
-  ['BNB', '/svg/icon/bnb.svg'],
+  ['BNB', '/svg/ icon/bnb.svg'],
   ['XRP', '/svg/icon/xrp.svg'],
   ['DOGE', '/svg/icon/doge.svg'],
   ['ADA', '/svg/icon/ada.svg'],
   ['MATIC', '/svg/icon/matic.svg'],
 ]
+
+const coinOrder = new Set([
+  'BTC',
+  'ETH',
+  'USDT',
+  'USDC',
+  'BUSD',
+  'BNB',
+  'XRP',
+  'DOGE',
+  'ADA',
+  'MATIC',
+  'TRX',
+  'DAI',
+  'LTC',
+  'DOT',
+  'XMR',
+  'AVAX',
+  'TON',
+  'BCH',
+  'ATOM',
+  'XLM',
+])
+
+const networkOrder = new Set([
+  'BTC',
+  'ETH',
+  'TRX',
+  'BSC',
+  'BNB',
+  'Polygon',
+  'XRP',
+  'DOGE',
+  'ADA',
+  'LTC',
+  'DOT',
+  'SOL',
+  'ALGO',
+  'AVAX',
+  'ATOM',
+  'TON',
+  'XMR',
+  'BCH',
+  'XLM',
+])
+
+interface UserAddresses {
+  BTC?: {
+    BTC: string
+  }
+}
+
+export function orderCoins(input: any) {
+  const result = []
+  const addr = Object.entries(input)
+  for (const coin of coinOrder) {
+    if (input[coin]) {
+      result.push({
+        asset: coin,
+        networks: orderNetwork(input[coin]),
+      })
+    }
+  }
+  return result
+}
+
+function orderNetwork(input: any) {
+  const result = []
+  for (const network of networkOrder) {
+    if (input[network]) {
+      result.push({
+        network: network,
+        address: input[network],
+      })
+    }
+  }
+  return result
+}
 
 export const networksMap = new Map<string, Network>()
 networksMap.set('ETH', {

@@ -14,7 +14,7 @@ import { getValidUrlFromUsernameOrUrl } from '../utils/functions'
 import { QR } from '../components/Icons/QR'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { QRCodeSVG } from 'qrcode.react'
-import { coinsMap, networksMap } from '../utils/constants'
+import { coinsMap, networksMap, orderCoins } from '../utils/constants'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { supabase as supabaseClient } from '../utils/supabase'
 import { ParsedUrlQuery } from 'querystring'
@@ -59,9 +59,12 @@ function Username({ profile }: Props) {
 
   let assets = null
 
-  if (profile.addresses) {
-    assets = Object.entries(profile.addresses).map(([asset, value]) => {
-      const addr = Object.entries(value)
+  if (profile?.addresses) {
+    const coins = orderCoins(profile.addresses)
+
+    assets = coins.map((value) => {
+      // const addr = Object.entries(value)
+      const { asset, networks } = value
       const coin = coinsMap.get(asset)!
 
       if (coin?.networks.length <= 1) {
@@ -72,7 +75,7 @@ function Username({ profile }: Props) {
           >
             <div
               className={`flex h-14 items-center gap-2 px-2 md:px-4 ${
-                qr.asset === asset && qr.network === addr[0][0]
+                qr.asset === asset && qr.network === networks[0].network
                   ? 'font-bold'
                   : ''
               }`}
@@ -94,7 +97,7 @@ function Username({ profile }: Props) {
               </div>
 
               <CopyToClipboard
-                text={addr[0][1] as string}
+                text={networks[0].address}
                 onCopy={() => {
                   setToast({
                     hidden: false,
@@ -103,14 +106,14 @@ function Username({ profile }: Props) {
                 }}
               >
                 <div className="w-full cursor-pointer overflow-x-hidden rounded-lg bg-base-300 px-2 py-2">
-                  {addr[0][1] as string}
+                  {networks[0].address}
                 </div>
               </CopyToClipboard>
 
               <div className="flex">
                 <div className="tooltip" data-tip="Copy to clipboard">
                   <CopyToClipboard
-                    text={addr[0][1] as string}
+                    text={networks[0].address}
                     onCopy={() => {
                       setToast({
                         hidden: false,
@@ -125,7 +128,10 @@ function Username({ profile }: Props) {
                 </div>
                 <button
                   onClick={() => {
-                    if (qr.asset === asset && qr.network === addr[0][0]) {
+                    if (
+                      qr.asset === asset &&
+                      qr.network === networks[0].network
+                    ) {
                       setQR({
                         address: '',
                         network: '',
@@ -133,8 +139,8 @@ function Username({ profile }: Props) {
                       })
                     } else {
                       setQR({
-                        address: addr[0][1] as string,
-                        network: addr[0][0],
+                        address: networks[0].address,
+                        network: networks[0].network,
                         asset: asset,
                       })
                     }
@@ -145,7 +151,7 @@ function Username({ profile }: Props) {
                 </button>
               </div>
             </div>
-            {qr.asset === asset && qr.network === addr[0][0] ? (
+            {qr.asset === asset && qr.network === networks[0].network ? (
               <div className="flex items-center justify-center pt-2 pb-4">
                 <QRCodeSVG value={qr.address} />
               </div>
@@ -186,11 +192,11 @@ function Username({ profile }: Props) {
                 </Disclosure.Button>
 
                 <Disclosure.Panel className="flex flex-col">
-                  {addr.map(([network, address]) => (
-                    <div key={network} className="flex flex-col">
+                  {networks.map((n) => (
+                    <div key={n.network} className="flex flex-col">
                       <div
                         className={`flex h-14 items-center gap-2 ${
-                          qr.asset === asset && qr.network === network
+                          qr.asset === asset && qr.network === n.network
                             ? 'font-bold'
                             : ''
                         }`}
@@ -205,44 +211,44 @@ function Username({ profile }: Props) {
                             <div className="absolute top-0 right-0 translate-x-1/4 -translate-y-1/4 rounded-full bg-white">
                               <img
                                 className="h-3 w-3 md:h-4 md:w-4"
-                                src={networksMap.get(network)?.logo}
-                                alt={`${networksMap.get(network)?.logo} Logo`}
+                                src={networksMap.get(n.network)?.logo}
+                                alt={`${networksMap.get(n.network)?.logo} Logo`}
                               />
                             </div>
                           </div>
 
                           <div className="flex flex-col items-start justify-end text-xs md:text-sm">
                             <span className="hidden md:flex">
-                              {networksMap.get(network)?.name}
+                              {networksMap.get(n.network)?.name}
                             </span>
                             <span className="md:opacity-40">
-                              {networksMap.get(network)?.abbreviation}
+                              {networksMap.get(n.network)?.abbreviation}
                             </span>
                           </div>
                         </div>
 
                         <CopyToClipboard
-                          text={address as string}
+                          text={n.address}
                           onCopy={() => {
                             setToast({
                               hidden: false,
-                              message: `${asset} address on ${network} network copied to clipboard`,
+                              message: `${asset} address on ${n.network} network copied to clipboard`,
                             })
                           }}
                         >
                           <div className="w-full cursor-pointer overflow-x-hidden rounded-lg bg-base-300 px-2 py-2">
-                            {address as string}
+                            {n.address}
                           </div>
                         </CopyToClipboard>
 
                         <div className="flex">
                           <div className="tooltip" data-tip="Copy to clipboard">
                             <CopyToClipboard
-                              text={address as string}
+                              text={n.address}
                               onCopy={() => {
                                 setToast({
                                   hidden: false,
-                                  message: `${asset} address on ${network} network copied to clipboard`,
+                                  message: `${asset} address on ${n.network} network copied to clipboard`,
                                 })
                               }}
                             >
@@ -256,7 +262,7 @@ function Username({ profile }: Props) {
                             onClick={() => {
                               if (
                                 qr.asset === asset &&
-                                qr.network === network
+                                qr.network === n.network
                               ) {
                                 setQR({
                                   address: '',
@@ -265,8 +271,8 @@ function Username({ profile }: Props) {
                                 })
                               } else {
                                 setQR({
-                                  address: address as string,
-                                  network: network,
+                                  address: n.address,
+                                  network: n.network,
                                   asset: asset,
                                 })
                               }
@@ -277,7 +283,7 @@ function Username({ profile }: Props) {
                           </button>
                         </div>
                       </div>
-                      {qr.asset === asset && qr.network === network ? (
+                      {qr.asset === asset && qr.network === n.network ? (
                         <div className="flex items-center justify-center pt-2 pb-4">
                           <QRCodeSVG value={qr.address} />
                         </div>
