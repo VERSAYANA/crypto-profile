@@ -48,7 +48,7 @@ function SingleNetworkAssetView({
             : ''
         }`}
       >
-        <div className="flex w-24 items-center gap-2 md:w-48 md:gap-3">
+        <div className="flex w-20 items-center gap-1 md:w-48 md:gap-3">
           <img
             className="h-6 w-6 md:h-8 md:w-8"
             src={coinsMap.get(asset)?.logo}
@@ -62,7 +62,7 @@ function SingleNetworkAssetView({
           </div>
         </div>
 
-        <div className="flex min-w-0 flex-1 items-center justify-end gap-2">
+        <div className="flex min-w-0 flex-1 items-center justify-end gap-1">
           <CopyToClipboard
             text={address}
             onCopy={() => {

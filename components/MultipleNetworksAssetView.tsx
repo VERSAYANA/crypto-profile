@@ -50,7 +50,7 @@ function MultipleNetworksAssetView({
       {({ open }) => (
         <>
           <Disclosure.Button className="flex h-14 w-full items-center justify-between">
-            <div className="flex w-24 items-center gap-2 md:w-48 md:gap-2">
+            <div className="flex w-24 items-center gap-1 md:w-48 md:gap-2">
               <img
                 className="h-6 w-6 md:h-8 md:w-8"
                 src={coinsMap.get(asset)?.logo}
@@ -92,7 +92,7 @@ function MultipleNetworksAssetView({
                       : ''
                   }`}
                 >
-                  <div className="flex w-24 items-center gap-2 md:w-48 md:gap-3">
+                  <div className="flex w-20 items-center gap-1 md:w-48 md:gap-3">
                     <div className="relative h-6 w-6 md:h-8 md:w-8">
                       <img
                         className="h-6 w-6 md:h-8 md:w-8"
@@ -109,15 +109,15 @@ function MultipleNetworksAssetView({
                     </div>
 
                     <div className="flex flex-col items-start justify-end text-xs md:text-sm">
-                      <span className="hidden md:flex">
+                      <span className="hidden">
                         {networksMap.get(network)?.name}
                       </span>
-                      <span className="md:opacity-40">
+                      <span className="opacity-90">
                         {networksMap.get(network)?.abbreviation}
                       </span>
                     </div>
                   </div>
-                  <div className="flex min-w-0 flex-1 items-center justify-end gap-2">
+                  <div className="flex min-w-0 flex-1 items-center justify-end gap-1">
                     <CopyToClipboard
                       text={address}
                       onCopy={() => {
