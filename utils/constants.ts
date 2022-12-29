@@ -56,27 +56,31 @@ const networkOrder = new Set([
   'XLM',
 ])
 
-interface UserAddresses {
-  BTC?: {
-    BTC: string
+export interface WalletAddresses {
+  [coin: string]: {
+    [network: string]: string
   }
 }
 
-export function orderCoins(input: any) {
+export interface Addresses {
+  [network: string]: string
+}
+
+export function orderCoins(input: WalletAddresses) {
   const result = []
   const addr = Object.entries(input)
   for (const coin of coinOrder) {
     if (input[coin]) {
       result.push({
         asset: coin,
-        networks: orderNetwork(input[coin]),
+        addresses: orderNetwork(input[coin]),
       })
     }
   }
   return result
 }
 
-function orderNetwork(input: any) {
+function orderNetwork(input: Addresses) {
   const result = []
   for (const network of networkOrder) {
     if (input[network]) {

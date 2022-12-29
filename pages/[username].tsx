@@ -3,23 +3,15 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { Database } from '../utils/database.types'
 import Avatar from '../components/Avatar'
-import {
-  GitHub,
-  Twitter,
-  Link as LinkIcon,
-  Copy,
-  ChevronDown,
-} from 'react-feather'
+import { GitHub, Twitter, Link as LinkIcon } from 'react-feather'
 import { getValidUrlFromUsernameOrUrl } from '../utils/functions'
-import { QR } from '../components/Icons/QR'
-import CopyToClipboard from 'react-copy-to-clipboard'
-import { QRCodeSVG } from 'qrcode.react'
-import { coinsMap, networksMap, orderCoins } from '../utils/constants'
+import { coinsMap, orderCoins } from '../utils/constants'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { supabase as supabaseClient } from '../utils/supabase'
 import { ParsedUrlQuery } from 'querystring'
 import Head from 'next/head'
-import { Disclosure } from '@headlessui/react'
+import SingleNetworkAssetView from '../components/SingleNetworkAssetView'
+import MultipleNetworksAssetView from '../components/MultipleNetworksAssetView'
 
 type Profiles = Database['public']['Tables']['profiles']['Row']
 
@@ -37,7 +29,7 @@ function Username({ profile }: Props) {
     hidden: true,
     message: '',
   })
-  const [qr, setQR] = useState({
+  const [activeQR, setActiveQR] = useState({
     asset: '',
     network: '',
     address: '',
@@ -63,237 +55,31 @@ function Username({ profile }: Props) {
     const coins = orderCoins(profile.addresses)
 
     assets = coins.map((value) => {
-      // const addr = Object.entries(value)
-      const { asset, networks } = value
+      const { asset, addresses } = value
       const coin = coinsMap.get(asset)!
 
       if (coin?.networks.length <= 1) {
         return (
-          <div
+          <SingleNetworkAssetView
             key={asset}
-            className="flex flex-col rounded-lg bg-base-200 text-xs md:text-sm"
-          >
-            <div
-              className={`flex h-14 items-center gap-2 px-2 md:px-4 ${
-                qr.asset === asset && qr.network === networks[0].network
-                  ? 'font-bold'
-                  : ''
-              }`}
-            >
-              <div className="flex w-32 items-center gap-2 md:w-96 md:gap-2">
-                <img
-                  className="h-6 w-6 md:h-8 md:w-8"
-                  src={coinsMap.get(asset)?.logo}
-                  alt={`${coinsMap.get(asset)?.name} Logo`}
-                />
-                <div className="flex flex-col items-start justify-end text-xs md:text-sm">
-                  <span className="hidden md:flex">
-                    {coinsMap.get(asset)?.name}
-                  </span>
-                  <span className="md:opacity-40">
-                    {coinsMap.get(asset)?.abbreviation}
-                  </span>
-                </div>
-              </div>
-
-              <CopyToClipboard
-                text={networks[0].address}
-                onCopy={() => {
-                  setToast({
-                    hidden: false,
-                    message: `${asset} address copied to clipboard`,
-                  })
-                }}
-              >
-                <div className="w-full cursor-pointer overflow-x-hidden rounded-lg bg-base-300 px-2 py-2">
-                  {networks[0].address}
-                </div>
-              </CopyToClipboard>
-
-              <div className="flex">
-                <div className="tooltip" data-tip="Copy to clipboard">
-                  <CopyToClipboard
-                    text={networks[0].address}
-                    onCopy={() => {
-                      setToast({
-                        hidden: false,
-                        message: `${asset} address copied to clipboard`,
-                      })
-                    }}
-                  >
-                    <button className="btn-ghost btn-square btn">
-                      <Copy size={24} />
-                    </button>
-                  </CopyToClipboard>
-                </div>
-                <button
-                  onClick={() => {
-                    if (
-                      qr.asset === asset &&
-                      qr.network === networks[0].network
-                    ) {
-                      setQR({
-                        address: '',
-                        network: '',
-                        asset: '',
-                      })
-                    } else {
-                      setQR({
-                        address: networks[0].address,
-                        network: networks[0].network,
-                        asset: asset,
-                      })
-                    }
-                  }}
-                  className="btn-ghost btn-square btn"
-                >
-                  <QR width="24" height="24" />
-                </button>
-              </div>
-            </div>
-            {qr.asset === asset && qr.network === networks[0].network ? (
-              <div className="flex items-center justify-center pt-2 pb-4">
-                <QRCodeSVG value={qr.address} />
-              </div>
-            ) : null}
-          </div>
+            asset={asset}
+            network={addresses[0].network}
+            address={addresses[0].address}
+            activeQR={activeQR}
+            setActiveQR={setActiveQR}
+            setToast={setToast}
+          />
         )
       } else {
         return (
-          <Disclosure
-            defaultOpen={false}
+          <MultipleNetworksAssetView
             key={asset}
-            as="div"
-            className="flex flex-col rounded-lg bg-base-200 px-2 text-xs md:px-4 md:text-sm"
-          >
-            {({ open }) => (
-              <>
-                <Disclosure.Button className="flex h-14 w-full items-center justify-between">
-                  <div className="flex w-32 items-center gap-2 md:w-96 md:gap-2">
-                    <img
-                      className="h-6 w-6 md:h-8 md:w-8"
-                      src={coinsMap.get(asset)?.logo}
-                      alt={`${coinsMap.get(asset)?.name} Logo`}
-                    />
-                    <div className="flex flex-col items-start justify-end">
-                      <span className="hidden md:flex">
-                        {coinsMap.get(asset)?.name}
-                      </span>
-                      <span className="md:opacity-40">
-                        {coinsMap.get(asset)?.abbreviation}
-                      </span>
-                    </div>
-                  </div>
-                  <ChevronDown
-                    className={`h-6 w-6 md:h-8 md:w-8 ${
-                      open ? 'rotate-180 transform' : ''
-                    }`}
-                  />
-                </Disclosure.Button>
-
-                <Disclosure.Panel className="flex flex-col">
-                  {networks.map((n) => (
-                    <div key={n.network} className="flex flex-col">
-                      <div
-                        className={`flex h-14 items-center gap-2 ${
-                          qr.asset === asset && qr.network === n.network
-                            ? 'font-bold'
-                            : ''
-                        }`}
-                      >
-                        <div className="flex w-32 items-center gap-2 md:w-96 md:gap-2">
-                          <div className="relative h-6 w-6 md:h-8 md:w-8">
-                            <img
-                              className="h-6 w-6 md:h-8 md:w-8"
-                              src={coinsMap.get(asset)?.logo}
-                              alt={`${coinsMap.get(asset)?.name} Logo`}
-                            />
-                            <div className="absolute top-0 right-0 translate-x-1/4 -translate-y-1/4 rounded-full bg-white">
-                              <img
-                                className="h-3 w-3 md:h-4 md:w-4"
-                                src={networksMap.get(n.network)?.logo}
-                                alt={`${networksMap.get(n.network)?.logo} Logo`}
-                              />
-                            </div>
-                          </div>
-
-                          <div className="flex flex-col items-start justify-end text-xs md:text-sm">
-                            <span className="hidden md:flex">
-                              {networksMap.get(n.network)?.name}
-                            </span>
-                            <span className="md:opacity-40">
-                              {networksMap.get(n.network)?.abbreviation}
-                            </span>
-                          </div>
-                        </div>
-
-                        <CopyToClipboard
-                          text={n.address}
-                          onCopy={() => {
-                            setToast({
-                              hidden: false,
-                              message: `${asset} address on ${n.network} network copied to clipboard`,
-                            })
-                          }}
-                        >
-                          <div className="w-full cursor-pointer overflow-x-hidden rounded-lg bg-base-300 px-2 py-2">
-                            {n.address}
-                          </div>
-                        </CopyToClipboard>
-
-                        <div className="flex">
-                          <div className="tooltip" data-tip="Copy to clipboard">
-                            <CopyToClipboard
-                              text={n.address}
-                              onCopy={() => {
-                                setToast({
-                                  hidden: false,
-                                  message: `${asset} address on ${n.network} network copied to clipboard`,
-                                })
-                              }}
-                            >
-                              <button className="btn-ghost btn-square btn">
-                                <Copy size={24} />
-                              </button>
-                            </CopyToClipboard>
-                          </div>
-
-                          <button
-                            onClick={() => {
-                              if (
-                                qr.asset === asset &&
-                                qr.network === n.network
-                              ) {
-                                setQR({
-                                  address: '',
-                                  network: '',
-                                  asset: '',
-                                })
-                              } else {
-                                setQR({
-                                  address: n.address,
-                                  network: n.network,
-                                  asset: asset,
-                                })
-                              }
-                            }}
-                            className="btn-ghost btn-square btn"
-                          >
-                            <QR width="24" height="24" />
-                          </button>
-                        </div>
-                      </div>
-                      {qr.asset === asset && qr.network === n.network ? (
-                        <div className="flex items-center justify-center pt-2 pb-4">
-                          <QRCodeSVG value={qr.address} />
-                        </div>
-                      ) : null}
-                    </div>
-                  ))}
-                </Disclosure.Panel>
-              </>
-            )}
-          </Disclosure>
+            asset={asset}
+            addresses={addresses}
+            activeQR={activeQR}
+            setActiveQR={setActiveQR}
+            setToast={setToast}
+          />
         )
       }
     })

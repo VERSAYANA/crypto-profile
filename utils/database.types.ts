@@ -1,3 +1,5 @@
+import { WalletAddresses } from './constants'
+
 export type Json =
   | string
   | number
@@ -54,7 +56,7 @@ export interface Database {
           youtube: string | null
           ens: string | null
           created_at: string | null
-          addresses: Json | null
+          addresses: WalletAddresses | null
         }
         Insert: {
           id: string
@@ -71,7 +73,7 @@ export interface Database {
           youtube?: string | null
           ens?: string | null
           created_at?: string | null
-          addresses?: Json | null
+          addresses?: WalletAddresses | null
         }
         Update: {
           id?: string
@@ -88,7 +90,7 @@ export interface Database {
           youtube?: string | null
           ens?: string | null
           created_at?: string | null
-          addresses?: Json | null
+          addresses?: WalletAddresses | null
         }
       }
     }
