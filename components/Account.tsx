@@ -254,13 +254,13 @@ export default function Account({ session }: { session: Session }) {
         />
         <h2 className="text-md my-4 pl-1">Coins</h2>
 
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-y-4">
           {[...coinsMap].map(([key, coin]) => {
             if (coin.networks.length <= 1) {
               return (
                 <div
                   key={key}
-                  className="flex h-16 gap-9 rounded-lg bg-base-200 px-2 text-xs md:gap-2 md:px-3 md:text-sm"
+                  className="flex h-16 rounded-lg bg-base-200 px-2 text-xs md:px-3 md:text-sm"
                 >
                   <div className="flex w-32 items-center gap-2 md:w-72 md:gap-3">
                     <img
@@ -303,7 +303,7 @@ export default function Account({ session }: { session: Session }) {
                 >
                   {({ open }) => (
                     <>
-                      <Disclosure.Button className="flex h-16 gap-9">
+                      <Disclosure.Button className="flex h-16">
                         <div className="flex w-32 items-center gap-2 md:w-72 md:gap-3">
                           <img
                             className="h-6 w-6 md:h-8 md:w-8"
