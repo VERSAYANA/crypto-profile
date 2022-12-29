@@ -260,7 +260,7 @@ export default function Account({ session }: { session: Session }) {
               return (
                 <div
                   key={key}
-                  className="flex h-16 gap-9 rounded-lg bg-base-200 px-2 md:gap-2 md:px-3"
+                  className="flex h-16 gap-9 rounded-lg bg-base-200 px-2 text-xs md:gap-2 md:px-3 md:text-sm"
                 >
                   <div className="flex w-32 items-center gap-2 md:w-72 md:gap-3">
                     <img
@@ -289,7 +289,7 @@ export default function Account({ session }: { session: Session }) {
                           network: coin.networks[0],
                         })
                       }
-                      className="input-bordered input h-10 w-full"
+                      className="input-bordered input h-10 w-full text-xs md:text-sm"
                     />
                   </div>
                 </div>
@@ -328,7 +328,10 @@ export default function Account({ session }: { session: Session }) {
 
                       <Disclosure.Panel>
                         {coin.networks.map((network) => (
-                          <div key={network} className="flex h-16">
+                          <div
+                            key={network}
+                            className="flex h-16 text-xs md:text-sm"
+                          >
                             <div className="flex w-32 items-center gap-2 md:w-72 md:gap-3">
                               <div className="relative h-6 w-6 md:h-8 md:w-8">
                                 <img
@@ -355,7 +358,7 @@ export default function Account({ session }: { session: Session }) {
                                 </span>
                               </div>
                             </div>
-                            <div className="flex w-full items-center justify-end">
+                            <div className="flex w-full items-center justify-end ">
                               <input
                                 disabled={loading}
                                 value={
@@ -371,7 +374,7 @@ export default function Account({ session }: { session: Session }) {
                                     network: network,
                                   })
                                 }
-                                className="input-bordered input h-10 w-full"
+                                className="input-bordered input h-10 w-full text-xs md:text-sm"
                               />
                             </div>
                           </div>
