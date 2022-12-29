@@ -15,7 +15,7 @@ function SingleNetworkAssetInput({
   dispatch,
 }: Props) {
   return (
-    <div className="flex h-16 items-center justify-between rounded-lg bg-base-200 px-2 text-xs md:px-3 md:text-sm">
+    <div className="flex h-16 items-center justify-between rounded-lg bg-base-200 px-2 text-xs md:px-4 md:text-sm">
       <div className="flex w-24 items-center gap-2 md:w-52 md:gap-3">
         <img
           className="h-6 w-6 md:h-8 md:w-8"

@@ -19,7 +19,7 @@ function MultipleNetworksAssetInput({
   return (
     <Disclosure
       as="div"
-      className="flex flex-col  rounded-lg bg-base-200 px-2 md:px-3"
+      className="flex flex-col  rounded-lg bg-base-200 px-2 md:px-4"
     >
       {({ open }) => (
         <>
