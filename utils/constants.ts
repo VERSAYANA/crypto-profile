@@ -136,7 +136,7 @@ networksMap.set('ATOM', {
   logo: '/svg/black/atom.svg',
 })
 
-interface CoinDetails {
+export interface CoinDetails {
   name: string
   abbreviation: string
   logo: string

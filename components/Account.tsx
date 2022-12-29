@@ -9,6 +9,8 @@ import PersonalInfoInput from './PersonalInfoInput'
 import Head from 'next/head'
 import { ChevronDown } from 'react-feather'
 import { Disclosure } from '@headlessui/react'
+import SingleNetworkAssetInput from './SingleNetworkAssetInput'
+import MultipleNetworksAssetInput from './MultipleNetworksAssetInput'
 type Profiles = Database['public']['Tables']['profiles']['Row']
 
 function reducer(state: any, action: any) {
@@ -258,131 +260,23 @@ export default function Account({ session }: { session: Session }) {
           {[...coinsMap].map(([key, coin]) => {
             if (coin.networks.length <= 1) {
               return (
-                <div
+                <SingleNetworkAssetInput
                   key={key}
-                  className="flex h-16 items-center justify-between rounded-lg bg-base-200 px-2 text-xs md:px-3 md:text-sm"
-                >
-                  <div className="flex w-24 items-center gap-2 md:w-48 md:gap-3">
-                    <img
-                      className="h-6 w-6 md:h-8 md:w-8"
-                      src={coin.logo}
-                      alt={`${coin.abbreviation} Logo`}
-                    />
-                    <div className="flex flex-col items-start justify-start text-xs md:text-sm">
-                      <span className="hidden md:flex">{coin.name}</span>
-                      <span className="md:opacity-40">{coin.abbreviation}</span>
-                    </div>
-                  </div>
-                  <div className="flex flex-1 items-center justify-end">
-                    <input
-                      disabled={loading}
-                      value={
-                        coinsState[coin.abbreviation]?.[coin.networks[0]]
-                          ? coinsState[coin.abbreviation][coin.networks[0]]
-                          : ''
-                      }
-                      onChange={(e) =>
-                        dispatch({
-                          type: 'update',
-                          coin: coin.abbreviation,
-                          newValue: e.target.value,
-                          network: coin.networks[0],
-                        })
-                      }
-                      className="input-bordered input h-10 w-full text-xs md:text-sm"
-                    />
-                  </div>
-                </div>
+                  coin={coin}
+                  coinsState={coinsState}
+                  dispatch={dispatch}
+                  loading={loading}
+                />
               )
             } else {
               return (
-                <Disclosure
+                <MultipleNetworksAssetInput
                   key={key}
-                  as="div"
-                  className="flex flex-col  rounded-lg bg-base-200 px-2 md:px-3"
-                >
-                  {({ open }) => (
-                    <>
-                      <Disclosure.Button className="flex h-16 items-center justify-between">
-                        <div className="flex w-24 items-center gap-2 md:w-48 md:gap-3">
-                          <img
-                            className="h-6 w-6 md:h-8 md:w-8"
-                            src={coin.logo}
-                            alt={`${coin.abbreviation} Logo`}
-                          />
-                          <div className="flex flex-col items-start justify-start text-xs md:text-sm">
-                            <span className="hidden md:flex">{coin.name}</span>
-                            <span className="md:opacity-40">
-                              {coin.abbreviation}
-                            </span>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-end">
-                          <ChevronDown
-                            className={`${
-                              open ? 'rotate-180 transform' : ''
-                            } h-6 w-6 md:h-8 md:w-8`}
-                          />
-                        </div>
-                      </Disclosure.Button>
-
-                      <Disclosure.Panel>
-                        {coin.networks.map((network) => (
-                          <div
-                            key={network}
-                            className="flex h-16 items-center justify-between text-xs md:text-sm"
-                          >
-                            <div className="flex w-24 items-center gap-2 md:w-48 md:gap-3">
-                              <div className="relative h-6 w-6 md:h-8 md:w-8">
-                                <img
-                                  className="h-6 w-6 md:h-8 md:w-8"
-                                  src={coin.logo}
-                                  alt={`${coin.abbreviation} Logo`}
-                                />
-                                <div className="absolute top-0 right-0 translate-x-1/4 -translate-y-1/4 rounded-full bg-white">
-                                  <img
-                                    className=" h-3 w-3  md:h-4 md:w-4"
-                                    src={networksMap.get(network)?.logo}
-                                    alt={`${
-                                      networksMap.get(network)?.logo
-                                    } Logo`}
-                                  />
-                                </div>
-                              </div>
-                              <div className="flex flex-col items-start justify-start text-xs md:text-sm">
-                                <span className="hidden md:flex">
-                                  {networksMap.get(network)?.name}
-                                </span>
-                                <span className="md:opacity-40">
-                                  {networksMap.get(network)?.abbreviation}
-                                </span>
-                              </div>
-                            </div>
-                            <div className="flex flex-1 items-center justify-end ">
-                              <input
-                                disabled={loading}
-                                value={
-                                  coinsState[coin.abbreviation]?.[network]
-                                    ? coinsState[coin.abbreviation][network]
-                                    : ''
-                                }
-                                onChange={(e) =>
-                                  dispatch({
-                                    type: 'update',
-                                    coin: coin.abbreviation,
-                                    newValue: e.target.value,
-                                    network: network,
-                                  })
-                                }
-                                className="input-bordered input h-10 w-full text-xs md:text-sm"
-                              />
-                            </div>
-                          </div>
-                        ))}
-                      </Disclosure.Panel>
-                    </>
-                  )}
-                </Disclosure>
+                  coin={coin}
+                  coinsState={coinsState}
+                  dispatch={dispatch}
+                  loading={loading}
+                />
               )
             }
           })}
