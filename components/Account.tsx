@@ -260,9 +260,9 @@ export default function Account({ session }: { session: Session }) {
               return (
                 <div
                   key={key}
-                  className="flex h-16 rounded-lg bg-base-200 px-2 text-xs md:px-3 md:text-sm"
+                  className="flex h-16 items-center justify-between rounded-lg bg-base-200 px-2 text-xs md:px-3 md:text-sm"
                 >
-                  <div className="flex w-32 items-center gap-2 md:w-72 md:gap-3">
+                  <div className="flex w-24 items-center gap-2 md:w-48 md:gap-3">
                     <img
                       className="h-6 w-6 md:h-8 md:w-8"
                       src={coin.logo}
@@ -273,7 +273,7 @@ export default function Account({ session }: { session: Session }) {
                       <span className="md:opacity-40">{coin.abbreviation}</span>
                     </div>
                   </div>
-                  <div className="flex w-full items-center justify-end">
+                  <div className="flex flex-1 items-center justify-end">
                     <input
                       disabled={loading}
                       value={
@@ -303,8 +303,8 @@ export default function Account({ session }: { session: Session }) {
                 >
                   {({ open }) => (
                     <>
-                      <Disclosure.Button className="flex h-16">
-                        <div className="flex w-32 items-center gap-2 md:w-72 md:gap-3">
+                      <Disclosure.Button className="flex h-16 items-center justify-between">
+                        <div className="flex w-24 items-center gap-2 md:w-48 md:gap-3">
                           <img
                             className="h-6 w-6 md:h-8 md:w-8"
                             src={coin.logo}
@@ -317,7 +317,7 @@ export default function Account({ session }: { session: Session }) {
                             </span>
                           </div>
                         </div>
-                        <div className="flex w-full items-center justify-end">
+                        <div className="flex items-center justify-end">
                           <ChevronDown
                             className={`${
                               open ? 'rotate-180 transform' : ''
@@ -330,9 +330,9 @@ export default function Account({ session }: { session: Session }) {
                         {coin.networks.map((network) => (
                           <div
                             key={network}
-                            className="flex h-16 text-xs md:text-sm"
+                            className="flex h-16 items-center justify-between text-xs md:text-sm"
                           >
-                            <div className="flex w-32 items-center gap-2 md:w-72 md:gap-3">
+                            <div className="flex w-24 items-center gap-2 md:w-48 md:gap-3">
                               <div className="relative h-6 w-6 md:h-8 md:w-8">
                                 <img
                                   className="h-6 w-6 md:h-8 md:w-8"
@@ -358,7 +358,7 @@ export default function Account({ session }: { session: Session }) {
                                 </span>
                               </div>
                             </div>
-                            <div className="flex w-full items-center justify-end ">
+                            <div className="flex flex-1 items-center justify-end ">
                               <input
                                 disabled={loading}
                                 value={
