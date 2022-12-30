@@ -153,7 +153,7 @@ interface Network {
   logo: string
 }
 
-export const coinsMap = new Map<number | string, CoinDetails>()
+export const coinsMap = new Map<string, CoinDetails>()
 coinsMap.set('BTC', {
   name: 'Bitcoin',
   abbreviation: 'BTC',

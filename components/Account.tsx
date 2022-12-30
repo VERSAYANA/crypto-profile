@@ -256,7 +256,74 @@ export default function Account({ session }: { session: Session }) {
         />
         <h2 className="text-md my-4 pl-1">Coins</h2>
 
-        <div className="flex flex-col gap-y-4">
+        <div className="flex flex-col gap-y-3 text-xs sm:text-sm md:gap-y-4">
+          <div className="flex px-3 font-bold md:px-4">
+            <div className="flex w-24 md:w-48">Asset</div>
+            <div className="flex w-16 md:w-24">Network</div>
+            <div className="flex flex-1">Address</div>
+          </div>
+          {[...coinsMap].map(([coin, coinDetails]) => {
+            return (
+              <div
+                key={coin}
+                className="flex flex-col rounded-lg bg-base-200 px-3 py-1 md:py-2 md:px-4"
+              >
+                {coinDetails.networks.map((network, i) => {
+                  return (
+                    <div
+                      key={network + coin}
+                      className="flex h-14 items-center"
+                    >
+                      <div className="flex w-24 md:w-48">
+                        {i === 0 ? (
+                          <div className="flex items-center gap-2 md:gap-3">
+                            <img
+                              className="h-6 w-6 md:h-8 md:w-8"
+                              src={coinDetails.logo}
+                              alt={`${coinDetails.abbreviation} Logo`}
+                            />
+                            <div className="flex flex-col items-start justify-start text-xs md:text-sm">
+                              <span className="hidden md:flex">
+                                {coinDetails.name}
+                              </span>
+                              <span className="md:opacity-40">
+                                {coinDetails.abbreviation}
+                              </span>
+                            </div>
+                          </div>
+                        ) : (
+                          ''
+                        )}
+                      </div>
+                      <div className="flex w-16 md:w-24">{network}</div>
+                      <div className="flex flex-1">
+                        <input
+                          disabled={loading}
+                          value={
+                            coinsState[coinDetails.abbreviation]?.[network]
+                              ? coinsState[coinDetails.abbreviation][network]
+                              : ''
+                          }
+                          onChange={(e) =>
+                            dispatch({
+                              type: 'update',
+                              coin: coinDetails.abbreviation,
+                              newValue: e.target.value,
+                              network: network,
+                            })
+                          }
+                          className="input h-10 w-full px-2 text-xs sm:text-sm md:px-4"
+                        />
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            )
+          })}
+        </div>
+
+        {/* <div className="mt-4 flex flex-col gap-y-4">
           {[...coinsMap].map(([key, coin]) => {
             if (coin.networks.length <= 1) {
               return (
@@ -280,7 +347,7 @@ export default function Account({ session }: { session: Session }) {
               )
             }
           })}
-        </div>
+        </div> */}
 
         <div className="my-4 flex justify-end gap-x-2">
           {dbUsername ? (
