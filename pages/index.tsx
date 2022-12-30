@@ -18,7 +18,7 @@ export default function Home() {
         <link rel="icon" href="/btc.png" />
       </Head>
       <div className="container mx-auto flex justify-center">
-        <div className="flex w-full max-w-2xl items-center justify-center p-4">
+        <div className="flex w-full max-w-3xl items-center justify-center p-4">
           {!session ? (
             <div className="w-full">
               <Auth
