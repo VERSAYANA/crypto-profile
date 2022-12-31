@@ -210,7 +210,7 @@ function Username({ profile }: Props) {
         <link rel="icon" href="/btc.svg" />
         <link rel="icon" href="/btc.png" />
       </Head>
-      <div className="container mx-auto flex justify-center">
+      <div className="container mx-auto mb-4 flex h-full justify-center">
         <div className="flex w-full max-w-4xl flex-col items-center justify-center p-4">
           <div className="flex w-full flex-col">
             <div className="mt-6">
