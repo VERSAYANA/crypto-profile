@@ -254,7 +254,7 @@ export default function Account({ session }: { session: Session }) {
           setValue={setGithub}
           loading={loading}
         />
-        <h2 className="text-md my-4 pl-1">Coins</h2>
+        <h2 className="text-md mb-4 mt-6 pl-1">Cryptocurrency Addresses</h2>
 
         <div className="flex flex-col gap-y-3 text-xs sm:text-sm md:gap-y-4">
           <div className="flex px-3 font-bold md:px-4">
