@@ -100,14 +100,14 @@ function Navbar() {
   }
 
   return (
-    <div className="navbar sticky top-0 z-10 items-center justify-center bg-base-100 px-2 shadow md:px-4">
+    <div className="navbar sticky top-0 z-10 items-center justify-center bg-base-100 px-2 shadow-md md:px-4">
       <div className="container flex w-full justify-between">
         <div className="flex gap-2">
           <Link href={'/'} className="btn-ghost btn-square btn">
             <Home size={24} />
           </Link>
 
-          <div title="Change Theme" className="dropdown">
+          {/* <div title=" Theme" className="dropdown">
             <div tabIndex={0} className={`btn-ghost btn gap-1 normal-case`}>
               <svg
                 width="20"
@@ -155,12 +155,12 @@ function Navbar() {
                             <div className="flex-grow text-sm font-bold">
                               {theme.id}
                             </div>
-                            {/* <div className="flex flex-shrink-0 flex-wrap gap-1">
+                            <div className="flex flex-shrink-0 flex-wrap gap-1">
                               <div className="w-2 rounded bg-primary" />
                               <div className="w-2 rounded bg-secondary" />
                               <div className="w-2 rounded bg-accent" />
                               <div className="w-2 rounded bg-neutral" />
-                            </div> */}
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -169,7 +169,7 @@ function Navbar() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="flex justify-end gap-1 md:gap-2">{topRight}</div>
       </div>

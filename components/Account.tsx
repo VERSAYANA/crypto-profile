@@ -3,14 +3,10 @@ import { useState, useEffect, useReducer } from 'react'
 import { useSupabaseClient, Session } from '@supabase/auth-helpers-react'
 import { Database } from '../utils/database.types'
 import Avatar from './Avatar'
-import { coinsMap, networksMap } from '../utils/constants'
+import { coinsMap } from '../utils/constants'
 import { useRouter } from 'next/router'
 import PersonalInfoInput from './PersonalInfoInput'
 import Head from 'next/head'
-import { ChevronDown } from 'react-feather'
-import { Disclosure } from '@headlessui/react'
-import SingleNetworkAssetInput from './SingleNetworkAssetInput'
-import MultipleNetworksAssetInput from './MultipleNetworksAssetInput'
 type Profiles = Database['public']['Tables']['profiles']['Row']
 
 function reducer(state: any, action: any) {
