@@ -19,7 +19,7 @@ export default function Home() {
         <link rel="icon" href="/btc.png" />
       </Head>
       <div id="home" className="container mx-auto flex flex-1 justify-center">
-        <div className="flex w-full max-w-3xl flex-1 items-center justify-center p-3 md:p-4">
+        <div className="flex w-full max-w-3xl flex-1 items-center justify-center p-4">
           {!session ? (
             <div className="flex w-full flex-col items-center justify-center gap-8">
               <h1 className="max-w-xl text-center text-3xl md:text-5xl">
@@ -33,7 +33,7 @@ export default function Home() {
                 to receive cryptocurrency payments or donations.
               </h2>
               <div className="flex w-full flex-col items-center gap-y-4 px-4 md:p-0">
-                <div className="hidden w-full max-w-xl items-center justify-between rounded-full border border-base-200 bg-base-200 py-2 pl-4 pr-2 text-xl md:flex">
+                <div className="hidden w-full max-w-xl items-center justify-between rounded-full border border-base-200 bg-base-200 py-2 pl-4 pr-2 text-xl drop-shadow md:flex">
                   <div className="flex">
                     <span>send-me-crypto.vercel.app/</span>
                     <span className="opacity-50">username</span>

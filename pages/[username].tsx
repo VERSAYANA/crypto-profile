@@ -64,7 +64,7 @@ function Username({ profile }: Props) {
       return (
         <div
           key={asset}
-          className="flex flex-col rounded-lg bg-base-200 px-3 py-1 md:py-2 md:px-4"
+          className="flex flex-col rounded-lg bg-base-200 px-3 py-1 drop-shadow-sm md:py-2 md:px-4"
         >
           {addresses.map(({ network, address }, i) => {
             return (
