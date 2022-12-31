@@ -378,7 +378,7 @@ export default function Account({ session }: { session: Session }) {
               }
               disabled={loading}
             >
-              {loading ? 'Loading ...' : 'Update'}
+              {loading ? 'Loading ...' : 'Save'}
             </button>
           </div>
         </div>

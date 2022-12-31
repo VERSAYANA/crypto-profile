@@ -23,6 +23,7 @@ const coinOrder = new Set([
   'ADA',
   'MATIC',
   'TRX',
+  'SOL',
   'DAI',
   'LTC',
   'DOT',
@@ -170,13 +171,13 @@ coinsMap.set('USDT', {
   name: 'Tether',
   abbreviation: 'USDT',
   logo: '/svg/icon/usdt.svg',
-  networks: ['ETH', 'TRX', 'BSC', 'Polygon'],
+  networks: ['ETH', 'TRX', 'BSC', 'Polygon', 'SOL'],
 })
 coinsMap.set('USDC', {
   name: 'USD Coin',
   abbreviation: 'USDC',
   logo: '/svg/icon/usdc.svg',
-  networks: ['ETH', 'TRX', 'BSC', 'Polygon'],
+  networks: ['ETH', 'TRX', 'BSC', 'Polygon', 'SOL'],
 })
 coinsMap.set('BUSD', {
   name: 'Binance USD',
@@ -219,6 +220,12 @@ coinsMap.set('TRX', {
   abbreviation: 'TRX',
   logo: '/svg/icon/trx.svg',
   networks: ['TRX'],
+})
+coinsMap.set('SOL', {
+  name: 'Solana',
+  abbreviation: 'SOL',
+  logo: '/svg/icon/sol.svg',
+  networks: ['SOL'],
 })
 coinsMap.set('DAI', {
   name: 'Dai',
