@@ -26,7 +26,7 @@ function AuthPage() {
         <link rel="icon" href="/btc.png" />
       </Head>
       <div className="container mx-auto flex w-full max-w-2xl flex-1 items-center justify-center">
-        <div className="w-full">
+        <div className="w-full p-4">
           <Auth
             supabaseClient={supabase}
             appearance={{
