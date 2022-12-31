@@ -3,7 +3,9 @@ import Link from 'next/link'
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 import { Database } from '../utils/database.types'
 import Avatar from './Avatar'
-import { ChevronDown } from 'react-feather'
+import { ChevronDown, Moon, Sun } from 'react-feather'
+import { themeChange } from 'theme-change'
+
 type Profiles = Database['public']['Tables']['profiles']['Row']
 
 function Navbar() {
@@ -12,6 +14,10 @@ function Navbar() {
   const [loading, setLoading] = useState(true)
   const [username, setUsername] = useState<Profiles['username']>(null)
   const [avatarUrl, setAvatarUrl] = useState<Profiles['avatar_url']>(null)
+
+  useEffect(() => {
+    themeChange(false)
+  }, [])
 
   useEffect(() => {
     async function getProfile() {
@@ -66,7 +72,7 @@ function Navbar() {
 
       <ul
         tabIndex={0}
-        className="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 shadow"
+        className="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-200 p-2 shadow"
       >
         {username ? (
           <li>
@@ -94,7 +100,23 @@ function Navbar() {
     <div className="navbar sticky top-0 z-10 items-center justify-center  bg-base-100 shadow">
       <div className="container flex w-full justify-between">
         <div>{/* <button className="btn-accent btn">Save</button> */}</div>
-        <div className="flex justify-end">{topRight}</div>
+        <div className="flex justify-end gap-2">
+          <button
+            className="btn-ghost btn-square btn"
+            data-set-theme="light"
+            data-act-class="hidden"
+          >
+            <Sun className="" size={24} />
+          </button>
+          <button
+            className="btn-ghost btn-square btn"
+            data-act-class="hidden"
+            data-set-theme="dark"
+          >
+            <Moon className="" size={24} />
+          </button>
+          {topRight}
+        </div>
       </div>
     </div>
   )
