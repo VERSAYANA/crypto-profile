@@ -38,9 +38,12 @@ export default function Home() {
                     <span>send-me-crypto.vercel.app/</span>
                     <span className="opacity-50">username</span>
                   </div>
-                  <button className="btn-secondary btn ml-2 rounded-full normal-case">
+                  <Link
+                    href={'/auth'}
+                    className="btn-secondary btn ml-2 rounded-full normal-case"
+                  >
                     Create my page
-                  </button>
+                  </Link>
                 </div>
 
                 <div className="flex h-12 w-full max-w-xl items-center justify-between rounded-full border border-base-200 bg-base-200 py-2 pl-4 pr-2 text-base md:hidden">
@@ -49,23 +52,13 @@ export default function Home() {
                     <span className="opacity-50">username</span>
                   </div>
                 </div>
-                <button className="btn-secondary btn w-full rounded-full normal-case md:hidden">
+                <Link
+                  href={'/auth'}
+                  className="btn-secondary btn w-full rounded-full normal-case md:hidden"
+                >
                   Create my page
-                </button>
+                </Link>
               </div>
-              {/* <Auth
-                supabaseClient={supabase}
-                appearance={{
-                  theme: ThemeSupa,
-                  className: {
-                    button: '!btn',
-                    input: '!input !input-bordered !text-base-content',
-                    label: '!label-text',
-                    anchor: '!link',
-                  },
-                }}
-                theme="default"
-              /> */}
             </div>
           ) : (
             <Account session={session} />
