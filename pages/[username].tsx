@@ -219,7 +219,9 @@ function Username({ profile }: Props) {
         <div className="flex w-full max-w-4xl flex-col items-center justify-center p-4">
           <div className="flex w-full flex-col">
             <div className="mt-6">
-              <Avatar url={profile?.avatar_url || ''} />
+              {profile?.avatar_url ? (
+                <Avatar url={profile?.avatar_url || ''} />
+              ) : null}
             </div>
 
             <div className="my-4 flex flex-col items-center">
