@@ -12,17 +12,13 @@ export default function Home() {
     <>
       <Head>
         <title>Send Me Crypto</title>
-        <meta name="description" content="Send Me Crypto" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/btc.svg" />
-        <link rel="icon" href="/btc.png" />
       </Head>
       <div id="home" className="container mx-auto flex flex-1 justify-center">
         <div className="flex w-full max-w-3xl flex-1 items-center justify-center p-4">
           {!session ? (
             <div className="flex w-full flex-col items-center justify-center gap-8">
               <h1 className="max-w-xl text-center text-3xl md:text-5xl">
-                Share your cryptocurrency addresses with ease
+                Share all of your cryptocurrency addresses in one page
               </h1>
               <h2 className="text-center text-lg opacity-80 md:text-2xl">
                 Create a profile like{' '}

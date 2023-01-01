@@ -20,10 +20,7 @@ function AuthPage() {
     <>
       <Head>
         <title>Sing in / Sign up</title>
-        <meta name="description" content="Send Me Crypto" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/btc.svg" />
-        <link rel="icon" href="/btc.png" />
+        <meta property="og:title" content="Sing in / Sign up" key="title" />
       </Head>
       <div className="container mx-auto flex w-full max-w-2xl flex-1 items-center justify-center">
         <div className="w-full p-4">

@@ -206,10 +206,16 @@ function Username({ profile }: Props) {
       <Head>
         <title>
           {profile?.username ? profile.username.toUpperCase() : 'User Profile'}
+          <meta
+            property="og:title"
+            content={
+              profile?.username
+                ? profile.username.toUpperCase()
+                : 'User Profile'
+            }
+            key="title"
+          />
         </title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/btc.svg" />
-        <link rel="icon" href="/btc.png" />
       </Head>
       <div className="container mx-auto mb-4 flex h-full justify-center">
         <div className="flex w-full max-w-4xl flex-col items-center justify-center p-4">

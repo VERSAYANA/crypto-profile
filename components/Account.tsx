@@ -165,9 +165,7 @@ export default function Account({ session }: { session: Session }) {
     <>
       <Head>
         <title>Edit Profile</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/btc.svg" />
-        <link rel="icon" href="/btc.png" />
+        <meta property="og:title" content="Edit Profile" key="title" />
       </Head>
       <div className="flex w-full flex-col">
         {user ? (
