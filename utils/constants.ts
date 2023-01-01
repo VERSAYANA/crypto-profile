@@ -11,7 +11,7 @@ export const coins = [
   ['MATIC', '/svg/icon/matic.svg'],
 ]
 
-const coinOrder = new Set([
+export const coinOrder = new Set([
   'BTC',
   'ETH',
   'USDT',
@@ -35,7 +35,7 @@ const coinOrder = new Set([
   'XLM',
 ])
 
-const networkOrder = new Set([
+export const networkOrder = new Set([
   'BTC',
   'ETH',
   'TRX',
@@ -56,43 +56,6 @@ const networkOrder = new Set([
   'BCH',
   'XLM',
 ])
-
-export interface WalletAddresses {
-  [coin: string]: {
-    [network: string]: string
-  }
-}
-
-export interface Addresses {
-  [network: string]: string
-}
-
-export function orderCoins(input: WalletAddresses) {
-  const result = []
-  const addr = Object.entries(input)
-  for (const coin of coinOrder) {
-    if (input[coin]) {
-      result.push({
-        asset: coin,
-        addresses: orderNetwork(input[coin]),
-      })
-    }
-  }
-  return result
-}
-
-function orderNetwork(input: Addresses) {
-  const result = []
-  for (const network of networkOrder) {
-    if (input[network]) {
-      result.push({
-        network: network,
-        address: input[network],
-      })
-    }
-  }
-  return result
-}
 
 export const networksMap = new Map<string, Network>()
 networksMap.set('ETH', {

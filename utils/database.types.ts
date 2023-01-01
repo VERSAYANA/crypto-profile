@@ -1,4 +1,4 @@
-import { WalletAddresses } from './constants'
+import { WalletAddresses } from './types'
 
 export type Json =
   | string

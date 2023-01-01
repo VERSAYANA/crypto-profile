@@ -3,9 +3,8 @@ import Link from 'next/link'
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 import { Database } from '../utils/database.types'
 import Avatar from './Avatar'
-import { ChevronDown, Home, Moon, Sun } from 'react-feather'
+import { ChevronDown, Home } from 'react-feather'
 import { themeChange } from 'theme-change'
-import { themes } from '../utils/constants'
 
 type Profiles = Database['public']['Tables']['profiles']['Row']
 
@@ -64,7 +63,7 @@ function Navbar() {
   )
 
   const userDropDown = (
-    <div className="dropdown dropdown-bottom">
+    <div className="dropdown-bottom dropdown">
       <label tabIndex={0} className="btn-ghost btn">
         <div className="flex items-center gap-4">
           <ChevronDown />

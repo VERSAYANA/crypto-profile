@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from 'react'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
-import Image from 'next/image'
 import { Database } from '../utils/database.types'
 type Profiles = Database['public']['Tables']['profiles']['Row']
 
