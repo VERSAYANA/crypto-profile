@@ -99,7 +99,7 @@ function Navbar() {
   }
 
   return (
-    <div className="navbar sticky top-0 z-10 items-center justify-center bg-base-100 px-2 shadow-md md:px-4">
+    <div className="navbar sticky top-0 z-10 items-center justify-center bg-base-200 px-2 shadow-md md:px-4">
       <div className="container flex w-full justify-between">
         <div className="flex gap-2">
           <Link href={'/'} className="btn-ghost btn-square btn">
