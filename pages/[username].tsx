@@ -59,8 +59,7 @@ function Username({ profile }: Props) {
 
     tableView = coins.map(({ asset, addresses }) => {
       const coinDetails = coinsMap.get(asset)!
-      console.log(coins)
-      // console.log(addresses)
+
       if (addresses.length > 0) {
         return (
           <div
