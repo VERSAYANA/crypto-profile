@@ -76,7 +76,7 @@ function Username({ profile }: Props) {
                         : ''
                     }`}
                   >
-                    <div className="flex w-24 md:w-44">
+                    <div className="flex w-24 md:w-44 lg:w-48">
                       {i === 0 ? (
                         <div
                           className={`flex items-center gap-2 md:gap-3 ${
