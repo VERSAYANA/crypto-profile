@@ -129,14 +129,14 @@ export default function Account({ session }: { session: Session }) {
       if (!user) throw new Error('No user')
       const updates = {
         id: user.id,
-        username: username?.toLowerCase(),
-        website,
-        avatar_url,
+        username: username?.toLowerCase().trim(),
+        website: website?.trim(),
+        avatar_url: avatar_url?.trim(),
         addresses,
-        twitter,
-        bio,
-        github,
-        full_name,
+        twitter: twitter?.trim(),
+        bio: bio?.trim(),
+        github: github?.trim(),
+        full_name: full_name?.trim(),
         updated_at: new Date().toISOString(),
       }
 
@@ -304,7 +304,7 @@ export default function Account({ session }: { session: Session }) {
                             dispatch({
                               type: 'update',
                               coin: coinDetails.abbreviation,
-                              newValue: e.target.value,
+                              newValue: e.target.value.trim(),
                               network: network,
                             })
                           }
