@@ -12,6 +12,7 @@ export default function Home() {
     <>
       <Head>
         <title>Send Me Crypto</title>
+        <meta property="og:title" content="Send Me Crypto" key="title" />
       </Head>
       <div id="home" className="container mx-auto flex flex-1 justify-center">
         <div className="flex w-full max-w-3xl flex-1 items-center justify-center p-4">
