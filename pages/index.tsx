@@ -16,7 +16,7 @@ export default function Home() {
         <meta property="og:title" content="Crypto Profile" key="title" />
       </Head>
       <div id="home" className="container mx-auto flex flex-1 justify-center">
-        <div className="flex w-full max-w-3xl flex-1 items-center justify-center p-4">
+        <div className="flex w-full max-w-4xl flex-1 items-center justify-center p-4">
           {!session ? <Landing /> : <Account session={session} />}
         </div>
       </div>
