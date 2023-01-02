@@ -376,3 +376,94 @@ export let themes = [
     id: 'winter',
   },
 ]
+
+export const versayanaProfileData = {
+  id: 'f672a995-395e-4544-8de8-777fc05301cf',
+  updated_at: '2023-01-01T10:53:44.358+00:00',
+  username: 'versayana',
+  full_name: 'Ramtin Khalatbari',
+  avatar_url: 'f672a995-395e-4544-8de8-777fc05301cf.png',
+  bio: 'Front-end Developer',
+  website: null,
+  twitter: 'VERSAYANA',
+  github: 'VERSAYANA',
+  instagram: null,
+  tiktok: null,
+  youtube: null,
+  ens: null,
+  created_at: '2022-12-27T06:56:06.244367+00:00',
+  addresses: {
+    BCH: {
+      BCH: 'qzawgmvmqq3cnjpjtm5vz5fdpzw0snxrqcd5k3nyp9',
+    },
+    ATOM: {
+      ATOM: 'cosmos1tqpjwaj6nu3k4fy8ygytrtspg37lvvkakcw543',
+    },
+    USDT: {
+      ETH: '0xd904d808fB3e0F91E41bC3A4B858A5024dBE2F0a',
+      TRX: 'TRjDMzHruaBorqLTxbH7pthnqJXRF4yceE',
+      BSC: '0xd904d808fB3e0F91E41bC3A4B858A5024dBE2F0a',
+      Polygon: '0xd904d808fB3e0F91E41bC3A4B858A5024dBE2F0a',
+      SOL: 'Cv38ejKg12jXkjuPYqDfQGDGRTpd5tfzGVek298HHbXB',
+    },
+    USDC: {
+      ETH: '0xd904d808fB3e0F91E41bC3A4B858A5024dBE2F0a',
+      TRX: 'TRjDMzHruaBorqLTxbH7pthnqJXRF4yceE',
+      BSC: '0xd904d808fB3e0F91E41bC3A4B858A5024dBE2F0a',
+      Polygon: '0xd904d808fB3e0F91E41bC3A4B858A5024dBE2F0a',
+      SOL: 'Cv38ejKg12jXkjuPYqDfQGDGRTpd5tfzGVek298HHbXB',
+    },
+    BUSD: {
+      BSC: '0xd904d808fB3e0F91E41bC3A4B858A5024dBE2F0a',
+      BNB: 'bnb1yj2w8jmmcstwchxpq8cp3vq6gjsxfygy5s097c',
+    },
+    BNB: {
+      BSC: '0xd904d808fB3e0F91E41bC3A4B858A5024dBE2F0a',
+      BNB: 'bnb1yj2w8jmmcstwchxpq8cp3vq6gjsxfygy5s097c',
+    },
+    DAI: {
+      ETH: '0xd904d808fB3e0F91E41bC3A4B858A5024dBE2F0a',
+      Polygon: '0xd904d808fB3e0F91E41bC3A4B858A5024dBE2F0a',
+    },
+    XRP: {
+      XRP: 'rPSBxzoMwg9x7LLcQsyFXFWjnvEEsFSigc',
+    },
+    MATIC: {
+      ETH: '0xd904d808fB3e0F91E41bC3A4B858A5024dBE2F0a',
+      Polygon: '0xd904d808fB3e0F91E41bC3A4B858A5024dBE2F0a',
+    },
+    ETH: {
+      ETH: '0xd904d808fB3e0F91E41bC3A4B858A5024dBE2F0a',
+    },
+    BTC: {
+      BTC: 'bc1qtxf9cgj3stdnpw7cwh3preqrntgx8ztavrwgek',
+    },
+    DOGE: {
+      DOGE: 'D7pUeC7kYdUF1pMj6QWfG7QnuKvTK5RP5H',
+    },
+    XLM: {
+      XLM: 'GDYT4UQ3MIAPMVOUGDZD6E3Q7ARIUAC5DLRYANKOD3QPSMARKC5GY7AU',
+    },
+    AVAX: {
+      AVAX: '0xd904d808fB3e0F91E41bC3A4B858A5024dBE2F0a',
+    },
+    LTC: {
+      LTC: 'LPPMfLkRbWr6ofeCyoGdYZXNUMHvVKTPvt',
+    },
+    ADA: {
+      ADA: 'addr1q89t23wmx5uhvvwpthytzgnnjeakqhy4r4rtwfmkyk6gc4k2k4zakdfewccuzhwgky3889nmvpwf282xkunhvfd533tqz3ag5k',
+    },
+    TRX: {
+      TRX: 'TRjDMzHruaBorqLTxbH7pthnqJXRF4yceE',
+    },
+    DOT: {
+      DOT: '12o3aNYUGuU6LGUeuraVxXVsFfWj337hF8fzJ62SoQTx5QUz',
+    },
+    SOL: {
+      SOL: 'Cv38ejKg12jXkjuPYqDfQGDGRTpd5tfzGVek298HHbXB',
+    },
+    TON: {
+      TON: '',
+    },
+  },
+}
