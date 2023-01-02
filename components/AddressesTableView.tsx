@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { QRCodeSVG } from 'qrcode.react'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { Copy } from 'react-feather'
 import { coinsMap } from '../utils/constants'
@@ -14,20 +14,32 @@ type Props = {
       address: string
     }[]
   }[]
-  setToast: Dispatch<
-    SetStateAction<{
-      hidden: boolean
-      message: string
-    }>
-  >
 }
 
-function AddressesTableView({ assetAddresses, setToast }: Props) {
+function AddressesTableView({ assetAddresses }: Props) {
   const [activeQR, setActiveQR] = useState({
     asset: '',
     network: '',
     address: '',
   })
+
+  // Hide toast after 1.5s
+  const [toast, setToast] = useState({
+    hidden: true,
+    message: '',
+  })
+
+  useEffect(() => {
+    const timer = setTimeout(
+      () =>
+        setToast({
+          hidden: true,
+          message: '',
+        }),
+      1500
+    )
+    return () => clearTimeout(timer)
+  }, [toast])
 
   return (
     <div className="flex flex-col gap-y-3 text-xs sm:text-sm md:gap-y-4">
@@ -152,6 +164,17 @@ function AddressesTableView({ assetAddresses, setToast }: Props) {
           )
         }
       })}
+      <div
+        className={`toast-center toast toast-top z-10 w-80 text-center md:w-96 md:toast-bottom ${
+          toast.hidden ? 'hidden' : ''
+        }`}
+      >
+        <div className="alert alert-success">
+          <div className="flex w-full items-center">
+            <span className="w-full">{toast.message}</span>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
