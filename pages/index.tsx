@@ -12,8 +12,8 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Send Me Crypto</title>
-        <meta property="og:title" content="Send Me Crypto" key="title" />
+        <title>Crypto Profile</title>
+        <meta property="og:title" content="Crypto Profile" key="title" />
       </Head>
       <div id="home" className="container mx-auto flex flex-1 justify-center">
         <div className="flex w-full max-w-3xl flex-1 items-center justify-center p-4">
