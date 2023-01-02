@@ -18,7 +18,7 @@ export default function Document() {
         />
         <meta
           property="og:image"
-          content="https://send-me-crypto.vercel.app/sendmecrypto.jpeg"
+          content="https://send-me-crypto.vercel.app/mycryptoprofile.png"
         />
       </Head>
       <body>
