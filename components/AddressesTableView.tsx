@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { QRCodeSVG } from 'qrcode.react'
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { useState } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { Copy } from 'react-feather'
 import { coinsMap } from '../utils/constants'
@@ -16,6 +16,11 @@ type Props = {
   }[]
 }
 
+type ToastDetails = {
+  hidden: boolean
+  message: string
+}
+
 function AddressesTableView({ assetAddresses }: Props) {
   const [activeQR, setActiveQR] = useState({
     asset: '',
@@ -23,23 +28,15 @@ function AddressesTableView({ assetAddresses }: Props) {
     address: '',
   })
 
-  // Hide toast after 1.5s
-  const [toast, setToast] = useState({
+  const [toast, setToast] = useState<ToastDetails>({
     hidden: true,
     message: '',
   })
 
-  useEffect(() => {
-    const timer = setTimeout(
-      () =>
-        setToast({
-          hidden: true,
-          message: '',
-        }),
-      1500
-    )
-    return () => clearTimeout(timer)
-  }, [toast])
+  const toggleToast = (toastDetails: ToastDetails) => {
+    setToast(toastDetails)
+    setTimeout(() => setToast({ hidden: true, message: '' }), 1500)
+  }
 
   return (
     <div className="flex flex-col gap-y-3 text-xs sm:text-sm md:gap-y-4">
@@ -100,7 +97,7 @@ function AddressesTableView({ assetAddresses }: Props) {
                         <CopyToClipboard
                           text={address}
                           onCopy={() => {
-                            setToast({
+                            toggleToast({
                               hidden: false,
                               message: `${asset} address copied to clipboard`,
                             })
@@ -116,7 +113,7 @@ function AddressesTableView({ assetAddresses }: Props) {
                         <CopyToClipboard
                           text={address}
                           onCopy={() => {
-                            setToast({
+                            toggleToast({
                               hidden: false,
                               message: `${asset} address copied to clipboard`,
                             })

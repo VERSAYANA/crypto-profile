@@ -11,9 +11,9 @@ export function getValidUrlFromUsernameOrUrl(
   return usernameOrUrl
 }
 
-export function orderCoins(input: WalletAddresses) {
+export function orderCoins(input: WalletAddresses | null) {
+  if (input === null) return []
   const result = []
-  const addr = Object.entries(input)
   for (const coin of coinOrder) {
     if (input[coin]) {
       result.push({
