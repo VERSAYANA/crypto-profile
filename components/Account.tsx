@@ -7,6 +7,7 @@ import { coinsMap } from '../utils/constants'
 import { useRouter } from 'next/router'
 import PersonalInfoInput from './PersonalInfoInput'
 import Head from 'next/head'
+import { ToastDetails } from '../utils/types'
 type Profiles = Database['public']['Tables']['profiles']['Row']
 
 function reducer(state: any, action: any) {
@@ -40,23 +41,22 @@ export default function Account({ session }: { session: Session }) {
   const [avatar_url, setAvatarUrl] = useState<Profiles['avatar_url']>(null)
   const [coinsState, dispatch] = useReducer(reducer, {})
 
-  const [toast, setToast] = useState({
+  const [toast, setToast] = useState<ToastDetails>({
     hidden: true,
     message: '',
     type: '',
   })
-  useEffect(() => {
-    const timer = setTimeout(
-      () =>
-        setToast({
-          hidden: true,
-          message: '',
-          type: '',
-        }),
-      1000
+
+  const toggleToast = (toastDetails: ToastDetails) => {
+    setToast(toastDetails)
+    setTimeout(() =>
+      setToast({
+        hidden: true,
+        message: '',
+        type: '',
+      })
     )
-    return () => clearTimeout(timer)
-  }, [toast])
+  }
 
   useEffect(() => {
     async function getProfile() {
@@ -91,7 +91,7 @@ export default function Account({ session }: { session: Session }) {
           })
         }
       } catch (error) {
-        setToast({
+        toggleToast({
           hidden: false,
           message: 'Error loading user data!',
           type: 'error',
@@ -143,14 +143,14 @@ export default function Account({ session }: { session: Session }) {
       let { error } = await supabase.from('profiles').upsert(updates)
 
       if (error) throw error
-      setToast({
+      toggleToast({
         hidden: false,
         message: 'Profile updated!',
         type: 'success',
       })
       setDbUsername(username)
     } catch (error) {
-      setToast({
+      toggleToast({
         hidden: false,
         message: 'Error updating the data!',
         type: 'error',

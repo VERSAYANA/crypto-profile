@@ -7,3 +7,9 @@ export interface WalletAddresses {
 export interface Addresses {
   [network: string]: string
 }
+
+export type ToastDetails = {
+  hidden: boolean
+  message: string
+  type?: string
+}

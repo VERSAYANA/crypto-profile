@@ -4,6 +4,7 @@ import { useState } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { Copy } from 'react-feather'
 import { coinsMap } from '../utils/constants'
+import { ToastDetails } from '../utils/types'
 import { QR } from './Icons/QR'
 
 type Props = {
@@ -14,11 +15,6 @@ type Props = {
       address: string
     }[]
   }[]
-}
-
-type ToastDetails = {
-  hidden: boolean
-  message: string
 }
 
 function AddressesTableView({ assetAddresses }: Props) {

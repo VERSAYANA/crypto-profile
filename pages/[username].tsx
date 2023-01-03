@@ -1,15 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
 import { Database } from '../utils/database.types'
-import Avatar from '../components/Avatar'
-import { GitHub, Twitter, Link as LinkIcon, Copy } from 'react-feather'
-import { getValidUrlFromUsernameOrUrl, orderCoins } from '../utils/functions'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { supabase as supabaseClient } from '../utils/supabase'
 import { ParsedUrlQuery } from 'querystring'
 import Head from 'next/head'
-import AddressesTableView from '../components/AddressesTableView'
 import Profile from '../components/Profile'
 
 type Profiles = Database['public']['Tables']['profiles']['Row']
