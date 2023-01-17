@@ -49,13 +49,7 @@ export default function Account({ session }: { session: Session }) {
 
   const toggleToast = (toastDetails: ToastDetails) => {
     setToast(toastDetails)
-    setTimeout(() =>
-      setToast({
-        hidden: true,
-        message: '',
-        type: '',
-      })
-    )
+    setTimeout(() => setToast({ hidden: true, message: '', type: '' }), 1500)
   }
 
   useEffect(() => {
