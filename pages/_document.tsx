@@ -23,7 +23,7 @@ export default function Document() {
         />
         <meta
           property="og:image"
-          content="https://cryptoprofile.vercel.app//mycryptoprofile.png"
+          content="https://cryptoprofile.vercel.app/mycryptoprofile.png"
         />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="628" />
@@ -39,7 +39,7 @@ export default function Document() {
         />
         <meta
           property="twitter:image"
-          content="https://cryptoprofile.vercel.app//mycryptoprofile.png"
+          content="https://cryptoprofile.vercel.app/mycryptoprofile.png"
         />
       </Head>
       <body>
