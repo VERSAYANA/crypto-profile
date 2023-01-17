@@ -162,7 +162,7 @@ function AddressesTableView({ assetAddresses }: Props) {
           toast.hidden ? 'hidden' : ''
         }`}
       >
-        <div className="alert alert-success">
+        <div className="alert alert-success shadow-lg">
           <div className="flex w-full items-center">
             <span className="w-full">{toast.message}</span>
           </div>

@@ -375,7 +375,7 @@ export default function Account({ session }: { session: Session }) {
             toast.hidden ? 'hidden' : ''
           }`}
         >
-          <div className={`alert alert-${toast.type}`}>
+          <div className={`alert shadow-lg alert-${toast.type}`}>
             <div className="flex w-full items-center">
               <span className="w-full">{toast.message}</span>
             </div>
