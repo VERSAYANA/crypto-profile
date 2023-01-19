@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-
 import { Disclosure } from '@headlessui/react'
 import { QRCodeSVG } from 'qrcode.react'
 import { SetStateAction } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { ChevronDown, Copy } from 'react-feather'
-import { coinsMap, networksMap } from '../utils/constants'
+
+import { coinsMap, networksMap } from '@/utils/constants'
 import { QR } from './Icons/QR'
 
 type Props = {

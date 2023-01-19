@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { CoinDetails } from '../utils/constants'
+import { CoinDetails } from '@/utils/constants'
 
 type Props = {
   coin: CoinDetails

@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import { ArrowDown } from 'react-feather'
-import { versayanaProfileData } from '../utils/constants'
-import AddressesTableView from './AddressesTableView'
+
 import Profile from './Profile'
+import { versayanaProfileData } from '@/utils/constants'
 
 function Landing() {
   return (

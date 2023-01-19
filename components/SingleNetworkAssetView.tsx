@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-
 import { QRCodeSVG } from 'qrcode.react'
 import { SetStateAction } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { Copy } from 'react-feather'
-import { coinsMap } from '../utils/constants'
 import { QR } from './Icons/QR'
+
+import { coinsMap } from '@/utils/constants'
 
 type Props = {
   asset: string

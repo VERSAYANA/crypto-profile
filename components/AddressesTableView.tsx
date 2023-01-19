@@ -3,8 +3,10 @@ import { QRCodeSVG } from 'qrcode.react'
 import { useState } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { Copy } from 'react-feather'
-import { coinsMap } from '../utils/constants'
-import { ToastDetails } from '../utils/types'
+
+import { coinsMap } from '@/utils/constants'
+import { ToastDetails } from '@/utils/types'
+
 import { QR } from './Icons/QR'
 
 type Props = {

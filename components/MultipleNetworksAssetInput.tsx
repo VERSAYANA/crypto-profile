@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import { Disclosure } from '@headlessui/react'
 import { ChevronDown } from 'react-feather'
-import { CoinDetails, networksMap } from '../utils/constants'
+
+import { CoinDetails, networksMap } from '@/utils/constants'
 
 type Props = {
   coin: CoinDetails

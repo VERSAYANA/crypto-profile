@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
-import { Database } from '../utils/database.types'
-import Avatar from './Avatar'
 import { ChevronDown, Home } from 'react-feather'
 import { themeChange } from 'theme-change'
+
+import Avatar from './Avatar'
+import { Database } from '@/utils/database.types'
 
 type Profiles = Database['public']['Tables']['profiles']['Row']
 

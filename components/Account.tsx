@@ -1,13 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState, useEffect, useReducer } from 'react'
 import { useSupabaseClient, Session } from '@supabase/auth-helpers-react'
-import { Database } from '../utils/database.types'
-import Avatar from './Avatar'
-import { coinsMap } from '../utils/constants'
 import { useRouter } from 'next/router'
-import PersonalInfoInput from './PersonalInfoInput'
 import Head from 'next/head'
-import { ToastDetails } from '../utils/types'
+
+import Avatar from './Avatar'
+import PersonalInfoInput from './PersonalInfoInput'
+import { Database } from '@/utils/database.types'
+import { ToastDetails } from '@/utils/types'
+import { coinsMap } from '@/utils/constants'
+
 type Profiles = Database['public']['Tables']['profiles']['Row']
 
 function reducer(state: any, action: any) {

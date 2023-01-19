@@ -1,10 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-import { Database } from '../utils/database.types'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { supabase as supabaseClient } from '../utils/supabase'
 import { ParsedUrlQuery } from 'querystring'
 import Head from 'next/head'
-import Profile from '../components/Profile'
+
+import Profile from '@/components/Profile'
+import { Database } from '@/utils/database.types'
+import { supabase as supabaseClient } from '@/utils/supabase'
 
 type Profiles = Database['public']['Tables']['profiles']['Row']
 

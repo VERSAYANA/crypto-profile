@@ -1,9 +1,8 @@
 import Head from 'next/head'
-
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
-import Account from '../components/Account'
-import Link from 'next/link'
-import Landing from '../components/Landing'
+
+import Landing from '@/components/Landing'
+import Account from '@/components/Account'
 
 export default function Home() {
   const session = useSession()

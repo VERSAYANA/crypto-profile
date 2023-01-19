@@ -3,10 +3,10 @@ import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import { SessionContextProvider, Session } from '@supabase/auth-helpers-react'
 import { useState } from 'react'
 import { Analytics } from '@vercel/analytics/react'
-
-import Layout from '../components/Layout'
-import '../styles/globals.css'
 import Head from 'next/head'
+
+import Layout from '@/components/Layout'
+import '@/styles/globals.css'
 
 export default function App({
   Component,

@@ -1,8 +1,9 @@
 import { Twitter, GitHub, Link } from 'react-feather'
-import { Database } from '../utils/database.types'
-import { getValidUrlFromUsernameOrUrl, orderCoins } from '../utils/functions'
-import AddressesTableView from './AddressesTableView'
+
 import Avatar from './Avatar'
+import AddressesTableView from './AddressesTableView'
+import { Database } from '@/utils/database.types'
+import { getValidUrlFromUsernameOrUrl, orderCoins } from '@/utils/functions'
 
 type Profiles = Database['public']['Tables']['profiles']['Row']
 
