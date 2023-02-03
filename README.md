@@ -2,6 +2,8 @@
 
 [**Share all of your cryptocurrency addresses in one page.**](https://cryptoprofile.vercel.app)
 
+### Features
+
 - Create a profile to share your cryptocurrency addresses in one page
 - Profile pages are statically generated so they load instantly
 - You can Include your social links & bio too
